@@ -1,12 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portfolio</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/main.js" defer></script>
 </head>
-<body style="background: yellow; color: black; font-size: 24px; padding: 40px;">
-  <h1>GitHub Pages funciona</h1>
-  <p>Si ves esto, el proyecto está bien publicado.</p>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="#top">YourName</a>
+
+      <ul class="nav-links">
+        <li><a href="#works">Works</a></li>
+        <li><a href="#about">About me</a></li>
+        <li><a href="#contact">Contact me</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">Welcome to my Portfolio</h1>
+        <button class="hero-btn" id="discoverBtn" type="button">
+          Discover my art
+        </button>
+      </div>
+    </section>
+
+    <!-- WORKS -->
+    <section class="section" id="works">
+      <div class="container">
+        <h2>Works</h2>
+        <p class="muted">Aquí irá tu contenido de works (por ahora lo dejamos en blanco).</p>
+
+        <div class="placeholder">
+          <p>✨ Placeholder Works</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <h2>About me</h2>
+        <p class="muted">Aquí irá tu contenido de about me (por ahora lo dejamos en blanco).</p>
+
+        <div class="placeholder">
+          <p>✨ Placeholder About</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <h2>Contact me</h2>
+
+        <form class="form" action="#" method="post" novalidate>
+          <label>
+            Name
+            <input type="text" name="name" placeholder="Your name" />
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@email.com" />
+          </label>
+
+          <label>
+            Message
+            <textarea name="message" rows="5" placeholder="Write your message..."></textarea>
+          </label>
+
+          <button class="submit-btn" type="submit">Send</button>
+          <p class="form-note muted">*El formulario es visual (puedes conectarlo más adelante si quieres).</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="muted">© <span id="year"></span> YourName. All rights reserved.</p>
+
+      <div class="social">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="Behance">Behance</a>
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
+
 
