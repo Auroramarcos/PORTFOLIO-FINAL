@@ -31,44 +31,7 @@ body {
 
 .muted { opacity: 0.7; }
 
-/* Navbar */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
 
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.9rem 1rem;
-}
-
-.brand {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  padding: 0;
-  margin: 0;
-}
-
-.nav a {
-  text-decoration: none;
-  color: inherit;
-  opacity: 0.85;
-}
-.nav a:hover { opacity: 1; }
 
 /* =========================
    HERO (bloque inicial)
@@ -177,6 +140,69 @@ body.show-works #works {
     opacity: 1;
   }
 }
+
+/* =========================
+   NAVBAR (en línea y limpio)
+========================= */
+
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(241,241,241,0.75);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.nav{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem 3rem
+}
+
+.brand{
+  text-decoration: none;
+  color: #111;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Links en una sola fila */
+.nav-links{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link{
+  text-decoration: none;
+  color: rgba(0,0,0,0.75);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 200ms ease;
+}
+
+.nav-link:hover{
+  color: #b48cff; /* solo cambia color */
+}
+
+/* Activo: solo color (sin fondo) */
+.nav-link.is-active{
+  color: #b48cff;
+}
+
+/* Móvil */
+@media (max-width: 600px){
+  .nav{ padding: 1.2rem 1.5rem; }
+  .nav-links{ gap: 1rem; }
+}
+
 
 /* Sections */
 .section {
