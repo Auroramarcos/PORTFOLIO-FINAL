@@ -1,19 +1,32 @@
+// BOTÓN "DISCOVER MY ART"
 const discoverBtn = document.getElementById("discoverBtn");
-const hero = document.getElementById("hero");
-const works = document.getElementById("works");
-const year = document.getElementById("year");
+const worksSection = document.getElementById("works");
 
-if (year) year.textContent = new Date().getFullYear();
-
-if (discoverBtn && hero && works) {
-  discoverBtn.addEventListener("click", () => {
-    // Pequeña animación de "subida" del hero
-    hero.classList.add("is-exiting");
-
-    // Scroll suave a Works (con un pequeño delay para que se note la animación)
-    setTimeout(() => {
-      works.scrollIntoView({ behavior: "smooth", block: "start" });
-      hero.classList.remove("is-exiting");
-    }, 250);
-  });
+function showWorks() {
+  document.body.classList.add("show-works");
+  if (worksSection) {
+    worksSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
+
+function showHeroAgainIfAtTop() {
+  // Si estás arriba del todo, vuelve a mostrar el hero
+  if (window.scrollY <= 10) {
+    document.body.classList.remove("show-works");
+  }
+}
+
+if (discoverBtn) {
+  discoverBtn.addEventListener("click", showWorks);
+}
+
+// Cuando el usuario hace scroll, si vuelve arriba, reaparece el hero
+window.addEventListener("scroll", showHeroAgainIfAtTop, { passive: true });
+
+// También al cargar la página (por si recargas estando arriba)
+showHeroAgainIfAtTop();
+
+
+
+
+

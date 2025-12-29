@@ -20,3 +20,22 @@ Quiero que mi portfolio se divida de esta forma: un navbar con (works, about me,
 - Se añadió una animación simple y scroll suave al hacer click.
 - Se dejaron las secciones Works y About como placeholders.
 - Se implementó un formulario de contacto visual y un footer básico.
+
+
+## Interacción principal
+
+Se implementó una interacción en el botón principal del hero
+(“Discover my art”) que combina una animación sutil con scroll suave
+hacia la sección Works.
+
+## Uso de IA
+Se utilizó IA para definir la lógica de la animación y el scroll,
+buscando una transición limpia y no intrusiva entre secciones.
+
+## Prompt
+Quiero que mi botón de "Discover my art" tenga una pequeña animación para que vaya hacia el siguiente apartado y texto se vaya haciendo borroso.
+
+## Decisión de diseño
+La animación se mantuvo simple para no distraer del contenido y
+reforzar la narrativa del portfolio, guiando al usuario desde la
+introducción hacia los trabajos.
