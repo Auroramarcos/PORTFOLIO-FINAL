@@ -3,10 +3,16 @@
   --font-body: 'Montserrat', system-ui, sans-serif;
 }
 
-.hero-title,
-h1, h2, h3 {
+.hero-title {
   font-family: var(--font-title);
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin-bottom: 2rem;
+  font-size: 8rem;
+  background: yellow;
 }
+
 
 /* Base */
 * { box-sizing: border-box; }
