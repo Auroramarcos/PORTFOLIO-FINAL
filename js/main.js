@@ -26,6 +26,10 @@ window.addEventListener("scroll", showHeroAgainIfAtTop, { passive: true });
 // También al cargar la página (por si recargas estando arriba)
 showHeroAgainIfAtTop();
 
+// Año footer
+const year = document.getElementById("year");
+if (year) year.textContent = new Date().getFullYear();
+
 
 
 

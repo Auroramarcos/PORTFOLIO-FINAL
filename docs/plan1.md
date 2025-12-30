@@ -1,47 +1,85 @@
 # Plan 1 – Portfolio template
 
 ## Uso de IA
-Se utilizó IA como apoyo para definir la estructura del portfolio
-y para implementar una interacción concreta en la sección hero.
+Se utilizó IA como apoyo durante el proceso de desarrollo para definir
+la estructura general del portfolio y resolver aspectos técnicos
+concretos, como animaciones, transiciones entre secciones y
+organización del código.
 
-## Prompt
-Quiero que mi portfolio se divida de esta forma: un navbar con (works, about me, Contact me) Debajo quiero que haya un titulo grande donde ponga: Welcome to my Portfolio, y debajo de ese titulo un pequeño botón que cuando se pinche se desplace el título y el fondo hacia arriba, y después aparezcan los works. El botón quiero que ponga: discover my art. Debajo de todo eso irá el apartado de works. Todavia no tengo claro como va a ser. Debajo de works, irá el about me, que tampoco tengo claro como será. Asi que en esos dos apartado va a estar en blanco de momento. Después de eso dos apartado irá el Contact me con un formulario. Después habrá un footer con las redes sociales y alguna información relevante
+La IA se empleó como herramienta de apoyo y consulta, manteniendo
+decisiones de diseño y ajustes finales realizados de forma manual.
+
+---
+
+## Prompts utilizados
+- Definir la estructura general del portfolio con un navbar, hero,
+  secciones de Works, About me, Contact y footer.
+- Diseñar una interacción para el botón principal del hero que
+  conectara visualmente con la sección Works.
+- Implementar una animación en la que el hero se desplazara hacia
+  arriba mientras el texto se desenfoca.
+- Ajustar el comportamiento para que el hero reaparezca al volver
+  al inicio de la página.
+- Revisar y reorganizar el código CSS para mejorar su claridad y
+  mantenibilidad.
+
+---
 
 ## Plan propuesto
-- Crear una estructura HTML clara y semántica.
-- Diseñar un hero con título principal y botón de llamada a la acción.
-- Implementar una animación sencilla y scroll suave con JavaScript.
-- Dejar Works y About como secciones preparadas para futuro contenido.
-- Añadir un formulario básico de contacto y footer con redes.
+- Crear una estructura HTML clara, semántica y fácil de entender.
+- Diseñar un hero con un título principal y un botón de llamada a la acción.
+- Implementar una transición animada entre el hero y la sección Works.
+- Dejar las secciones Works y About preparadas para añadir contenido
+  en una fase posterior.
+- Añadir un formulario de contacto visual y un footer con información
+  básica y redes sociales.
+
+---
 
 ## Implementación
-- Se creó el navbar con enlaces a las secciones.
-- Se desarrolló un hero con botón “Discover my art”.
-- Se añadió una animación simple y scroll suave al hacer click.
+- Se desarrolló un navbar fijo con enlaces a las secciones principales.
+- Se creó un hero con el título “Welcome to my Portfolio” y el botón
+  “Discover my art”.
+- Se implementó una transición animada entre el hero y la sección Works
+  utilizando CSS y JavaScript.
 - Se dejaron las secciones Works y About como placeholders.
-- Se implementó un formulario de contacto visual y un footer básico.
+- Se añadió un formulario de contacto funcional a nivel visual y un
+  footer con redes sociales.
 
+---
 
 ## Interacción principal
+La interacción principal del proyecto se centra en la transición entre
+el hero y la sección Works.
 
-Se diseñó una transición entre el hero y la sección Works en la que el
-bloque inicial se desplaza hacia arriba mientras el texto se desenfoca,
-dando paso al contenido principal.
+Al pulsar el botón “Discover my art”, el bloque del hero se desplaza
+hacia arriba mientras el texto se va desenfocando, dando paso de forma
+simultánea a la sección de trabajos. Al volver al inicio de la página,
+el hero reaparece de manera natural.
 
-La animación se implementó con CSS y una pequeña lógica en JavaScript
-para controlar estados y scroll. Se utilizó IA como apoyo para plantear
-la estructura técnica, ajustando manualmente los valores de movimiento
-y blur para conseguir el efecto deseado.
+Esta interacción refuerza la narrativa del portfolio y guía al usuario
+desde la introducción hacia el contenido principal.
 
+---
 
-## Uso de IA
-Se utilizó IA para definir la lógica de la animación y el scroll,
-buscando una transición limpia y no intrusiva entre secciones.
+## Organización y mantenimiento del código
+Durante el desarrollo se realizó una revisión del código CSS para
+mejorar su organización y legibilidad.
 
-## Prompt
-Quiero que mi botón de "Discover my art" tenga una pequeña animación para que vaya hacia el siguiente apartado y texto se vaya haciendo borroso, y luego al subir, vuelva a aparecer el texto.
+Se eliminaron estilos duplicados, se centralizaron variables de color
+y tipografía en :root y se agruparon los estilos por secciones
+(base, navbar, hero, secciones, formulario y footer).
+
+Este refactor permite un código más limpio, mantenible y fácil de
+escalar en el futuro.
+
+---
 
 ## Decisión de diseño
-La animación se mantuvo simple para no distraer del contenido y
-reforzar la narrativa del portfolio, guiando al usuario desde la
-introducción hacia los trabajos.
+El diseño general del portfolio se mantuvo intencionadamente limpio y
+sencillo, priorizando la jerarquía visual y la experiencia de usuario.
+
+Las animaciones se utilizaron de forma moderada para aportar dinamismo
+sin distraer del contenido, manteniendo un equilibrio entre estética
+y funcionalidad.
+
