@@ -174,6 +174,58 @@ body.show-works #works {
 }
 
 /* =========================
+   WORKS – strip carousel (7 visibles desktop)
+========================= */
+
+.works-section {
+  padding: 3rem 0 2rem;
+}
+
+/* Carrusel a pantalla completa de ancho */
+.works-carousel{
+  width: 100%;
+  overflow: hidden;
+  height: 60vh;          /* altura tipo “galería” */
+  max-height: 700px;
+  min-height: 380px;
+}
+
+.works-track{
+  height: 100%;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.works-track::-webkit-scrollbar{ display:none; }
+
+/* “A4 vertical”: altura manda, ancho depende */
+.work-slide{
+  flex: 0 0 auto;
+  height: 100%;
+  aspect-ratio: 1 / 1.414;   /* A4 vertical */
+}
+
+.work-slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* Tablet: 5 visibles */
+@media (max-width: 900px){
+  .work-slide{ width: calc(100vw / 5); }
+}
+
+/* Móvil: 3 visibles */
+@media (max-width: 600px){
+  .work-slide{ width: calc(100vw / 3); }
+}
+
+
+/* =========================
    SECTIONS
 ========================= */
 

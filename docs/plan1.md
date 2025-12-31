@@ -83,3 +83,15 @@ Las animaciones se utilizaron de forma moderada para aportar dinamismo
 sin distraer del contenido, manteniendo un equilibrio entre estética
 y funcionalidad.
 
+
+## Works carousel (autoplay + scrollbar interactiva)
+
+Se implementó una sección de Works en formato carrusel horizontal con
+autoplay. Incluye una barra guía inferior con un thumb que se desplaza
+indicando la posición del carrusel.
+
+El usuario puede arrastrar el thumb para controlar el desplazamiento
+del carrusel (dirección y velocidad) y también arrastrar directamente
+el carrusel con el ratón. La animación se diseñó para ser suave y se
+respeta la preferencia de “reduced motion”.
+
