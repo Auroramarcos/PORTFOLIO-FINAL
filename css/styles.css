@@ -74,7 +74,7 @@ body {
 
 .nav-link:hover,
 .nav-link.is-active{
-  color: var(--accent);
+  color: #e2a7ff;
 }
 
 @media (max-width: 600px){
@@ -101,36 +101,53 @@ body {
   max-width: 720px;
 }
 
-.hero-content {
+.hero-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   will-change: transform, filter, opacity;
   transition: transform 900ms ease, filter 900ms ease, opacity 900ms ease;
 }
 
-.hero-title {
-  font-family: var(--font-title);
-  font-size: clamp(3.5rem, 9vw, 7rem);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  margin-bottom: 2rem;
-  color: var(--accent);
-}
-
-.hero-btn {
-  padding: 0.9rem 2rem;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  letter-spacing: 0.08em;
+.hero-title{
   text-transform: uppercase;
-  background: transparent;
-  color: var(--accent);
-  border: 1.5px solid var(--accent);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: transform 300ms ease, background 300ms ease, color 300ms ease;
+  font-weight: 800;
+  font-size: clamp(3.2rem, 8.2vw, 6.2rem);
+  line-height: 0.95;
+  text-align: center;
+  margin: 0 0 2rem 0;
+
+  max-width: 16ch;      /* fuerza 2 líneas */
+  margin-inline: auto;  /* centra el bloque */
+  text-wrap: balance;   /* si tu navegador lo soporta, queda muy bien */
 }
 
-.hero-btn:hover {
-  background: var(--accent);
+.hero-line{
+  display: block;
+  white-space: nowrap; /* 👈 evita que se rompa en 3-4 líneas */
+}
+
+.hero-btn{
+  margin-top: 1.5rem;
+  padding: 0.9rem 2.2rem;
+
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  background: transparent;
+  color: #000;
+  border: 1.5px solid #000;
+  border-radius: 999px;
+
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-btn:hover{
+  background: #000;
   color: #fff;
   transform: translateY(-2px);
 }
@@ -181,49 +198,54 @@ body.show-works #works {
   padding: 3rem 0 2rem;
 }
 
+.works-title{
+  text-align: center;
+  font-family: var(--font-body); /* Montserrat */
+  font-weight: 5000;
+  font-size: clamp(4rem, 8vw, 6.5rem);
+  color: #000;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.works-section > .container{
+  margin-bottom: 1rem; /* separación con las imágenes */
+  padding-top: 1rem;   /* baja el título */
+}
+
+
 /* Carrusel a pantalla completa de ancho */
+/* Carrusel */
 .works-carousel{
   width: 100%;
   overflow: hidden;
-  height: 60vh;          /* altura tipo “galería” */
+  height: 60vh;
   max-height: 700px;
   min-height: 380px;
 }
 
+/* Track */
 .works-track{
   height: 100%;
   display: flex;
   gap: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
+  will-change: transform;
 }
-.works-track::-webkit-scrollbar{ display:none; }
 
-/* “A4 vertical”: altura manda, ancho depende */
+/* Slides A4 vertical */
 .work-slide{
   flex: 0 0 auto;
   height: 100%;
-  aspect-ratio: 1 / 1.414;   /* A4 vertical */
+  aspect-ratio: 1 / 1.414; /* A4 vertical */
 }
 
+/* Imagen dentro */
 .work-slide img{
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
-
-/* Tablet: 5 visibles */
-@media (max-width: 900px){
-  .work-slide{ width: calc(100vw / 5); }
-}
-
-/* Móvil: 3 visibles */
-@media (max-width: 600px){
-  .work-slide{ width: calc(100vw / 3); }
-}
-
 
 /* =========================
    SECTIONS
@@ -234,9 +256,22 @@ body.show-works #works {
   border-top: 1px solid var(--border);
 }
 
-.section h2 {
+.section h2{
   margin: 0 0 0.75rem 0;
   font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+
+/* Works: no usar la regla general de h2 */
+#works .works-title{
+  margin-top: 0.6rem;     /* antes era más grande */
+  margin-bottom: 0.5rem;    /* reduce el aire con las imágenes */
+
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(4.5rem, 9vw, 7rem);
+  color: #000;
+  letter-spacing: -0.03em;
+  text-align: center;
 }
 
 .placeholder {
