@@ -74,7 +74,7 @@ body {
 
 .nav-link:hover,
 .nav-link.is-active{
-  color: #e2a7ff;
+  color: #c9a7ff;
 }
 
 @media (max-width: 600px){
@@ -107,6 +107,8 @@ body {
   align-items: center;
   will-change: transform, filter, opacity;
   transition: transform 900ms ease, filter 900ms ease, opacity 900ms ease;
+    /* ajuste óptico del bloque */
+  transform: translateX(-3.5%);
 }
 
 .hero-title{
@@ -188,6 +190,222 @@ body.show-works #works {
     filter: none;
     opacity: 1;
   }
+}
+
+/* =========================
+   HERO STICKERS (CLEAN)
+========================= */
+
+/* 1) Contexto: todo se posiciona relativo al hero */
+.hero-inner { position: relative; }
+.hero-content { position: relative; }
+
+/* 2) Capas (z-index):
+   - Fondo / stickers detrás del texto: z=1
+   - Texto + botón: z=5
+   - Doodles por encima de stickers pero debajo del texto: z=3
+*/
+.hero-title,
+.hero-btn { position: relative; z-index: 5; }
+
+/* 3) Contenedor stickers (zona donde viven) */
+.stickers{
+  position: absolute;
+  inset: -60px -60px auto -60px;
+  height: 460px;
+  pointer-events: none;
+  z-index: 1; /* debajo del título */
+}
+
+/* 4) Base sticker */
+.sticker{
+  position: absolute;
+  display: grid;
+  place-items: center;
+
+  padding: 0.55rem 0.9rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #111;
+
+  border: 2px solid #111;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.10);
+
+  transform: rotate(var(--rot, 0deg));
+}
+
+/* =========================
+   FORMAS PRINCIPALES
+========================= */
+
+/* CÍRCULO AMARILLO (debe ir detrás del texto) */
+.sticker--sun{
+  --rot: -6deg;
+  background: #ffe66b;
+  border-radius: 999px;
+
+  width: 90px;
+  height: 90px;
+
+  top: 20px;
+  left: 35px;
+
+  padding: 0;
+  font-size: 1.2rem;
+
+  z-index: 0; /* aún más abajo dentro de stickers */
+}
+
+/* ESTRELLA LILA (starburst más estable) */
+.sticker--star{
+  --rot: 8deg;
+  background: #c9a7ff;
+  width: 130px;
+  height: 55px;
+  padding: 1.05rem 1.05rem;
+  text-align: center;
+  line-height: 1.05;
+
+  top: 6px;
+  right: 135px;
+}
+
+.sticker--star span{
+  display: block;
+  font-size: 0.72rem;
+}
+
+/* “NEW WORK” (vuelve como estaba: con trazo) */
+.sticker--oval{
+  --rot: -8deg;
+  background: #9fe7d5;
+  border-radius: 999px;
+
+  top: 240px;
+  left: 60px;
+
+  padding: 0.55rem 1.05rem;
+}
+
+/* “STUDIO” (amarillo con trazo) */
+.sticker--bubble{
+  --rot: 10deg;
+  background: #ffe66b;
+  border-radius: 999px;
+
+  top: 250px;
+  right: 110px;
+
+  padding: 0.55rem 1.05rem;
+}
+
+/* “DESIGN” (con trazo, subido para que no tape la T) */
+.sticker--tag{
+  --rot: -10deg;
+  background: #fff;
+  border-radius: 10px;
+
+  top: 130px;
+  right: 295px;
+
+  padding: 0.45rem 0.75rem;
+}
+
+/* =========================
+   DOTS (más grandes + más separados)
+   Ajusta SOLO left/top en % si quieres afinarlos
+========================= */
+
+.sticker--dot,
+.sticker--dot-2,
+.sticker--dot-3{
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid #111;
+  padding: 0;
+  box-shadow: 0 10px 18px rgba(0,0,0,0.08);
+}
+
+/* LILA (entre P y C aprox) */
+.sticker--dot{
+  background: #b48cff;
+  left: 55%;
+  top: 52%;
+}
+
+/* AMARILLO (entre R y T aprox) */
+.sticker--dot-2{
+  background: #ffe66b;
+  left: 35%;
+  top: 32%;
+}
+
+/* AZUL (más hacia el final) */
+.sticker--dot-3{
+  background: #78d6ff;
+  left: 80%;
+  top: 25%;
+}
+
+/* =========================
+   DOODLES (SVG) - flechas/curvas “a boli”
+========================= */
+
+.doodles{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3; /* por encima de stickers, debajo del texto */
+}
+
+.doodle{
+  position: absolute;
+  width: 360px;
+  height: auto;
+  opacity: 0.95;
+}
+
+/* Flecha izquierda */
+.doodle--1{
+  left: 30px;
+  top: 130px;
+  transform: rotate(-2deg);
+}
+
+/* Flecha derecha */
+.doodle--2{
+  right: -240px;
+  top: -60px;
+  transform: rotate(70deg);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px){
+  .stickers{ height: 360px; inset: -40px -40px auto -40px; }
+  .doodle{ width: 300px; }
+}
+
+@media (max-width: 600px){
+  .stickers{ height: 280px; inset: -20px -20px auto -20px; }
+  .sticker{ font-size: 0.68rem; }
+
+  .sticker--sun{ width: 78px; height: 78px; font-size: 0.85rem; }
+  .sticker--star{ width: 120px; }
+
+  /* en móvil quitamos cosas para que no se ensucie */
+  .sticker--tag,
+  .sticker--dot-3,
+  .doodle--2{ display: none; }
 }
 
 /* =========================
