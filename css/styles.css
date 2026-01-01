@@ -649,15 +649,20 @@ input, textarea {
   background: #f6f6f6;
   border: 2px solid #111;
   border-radius: 18px;
-  overflow: hidden;
+
+  overflow: visible; /* ✅ IMPORTANTE: para que no recorte las flechas */
   box-shadow: 0 30px 80px rgba(0,0,0,0.25);
 }
 
-/* Grid inside */
+/* El recorte (bordes redondos) lo hacemos dentro */
 .project-grid{
   height: 100%;
   display: grid;
   grid-template-columns: 1.25fr 0.85fr;
+
+  overflow: hidden;     /* ✅ aquí sí */
+  border-radius: 18px;  /* ✅ aquí sí */
+  background: #f6f6f6;
 }
 
 /* Left media */
@@ -744,7 +749,7 @@ input, textarea {
   cursor: pointer;
 }
 
-/* Project nav arrows (outside card sides but attached) */
+/* Project nav arrows */
 .project-nav{
   position: absolute;
   top: 50%;
@@ -757,9 +762,12 @@ input, textarea {
   font-size: 34px;
   line-height: 1;
   cursor: pointer;
+
+  z-index: 50; /* ✅ para que esté por encima de todo */
 }
-.project-nav--prev{ left: 14px; }
-.project-nav--next{ right: 14px; }
+
+.project-nav--prev{ left: -28px; } /* ✅ queda “pegada” fuera */
+.project-nav--next{ right: -28px; }
 
 /* Responsive: en móvil ponemos 1 columna */
 @media (max-width: 800px){

@@ -220,6 +220,15 @@ modal?.addEventListener("click", (e) => {
 btnPrevProj?.addEventListener("click", prevProject);
 btnNextProj?.addEventListener("click", nextProject);
 
+if (btnPrevProj) {
+  btnPrevProj.addEventListener("click", () => {
+    currentProject = (currentProject - 1 + projects.length) % projects.length;
+    currentImage = 0;
+    renderProject(); // ⚠️ si en tu código se llama distinto, cambia esta línea
+  });
+}
+
+
 // Navegación imágenes dentro del proyecto
 btnPrevImg?.addEventListener("click", prevImage);
 btnNextImg?.addEventListener("click", nextImage);
