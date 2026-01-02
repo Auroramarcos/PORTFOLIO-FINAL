@@ -91,53 +91,53 @@ const btnNextImg = document.getElementById("imgNext");
 // 1) Define aquí tus proyectos (puedes cambiar títulos, textos, y rutas)
 const projects = [
   {
-    title: "Project 01",
-    desc: "Descripción breve del proyecto. Qué hiciste, idea, técnica, etc.",
+    title: "Learning by Play",
+    desc: "This project explores how playful illustration can become a tool for learning and emotional development. Through simple characters and symbolic actions, it investigates curiosity, experimentation, and how visual narratives help communicate complex ideas in an accessible, human, and intuitive way.",
     images: ["assets/works/project1/image1.jpg", "assets/works/project1/image_2_1.png", "assets/works/project1/image_3_1.png"]
   },
   {
-    title: "Project 02",
-    desc: "Descripción breve del proyecto 02.",
+    title: "Human Scale",
+    desc: "A visual research project focused on the relationship between the human body and everyday objects. It reflects on scale, presence, and pause, questioning how ordinary environments influence our awareness, vulnerability, and sense of self within spaces designed more for function than emotion.",
     images: ["assets/works/project2/image2.jpg", "assets/works/project2/image_2_2.png", "assets/works/project2/image_3_2.png"]
   },
   {
-    title: "Project 03",
-    desc: "Descripción breve del proyecto 03.",
+    title: "Instructions for Living",
+    desc: "This project reimagines instruction manuals as a metaphor for human behavior. Using humor and repetition, it questions how we follow rules, interpret symbols, and seek direction, turning standardized systems into playful narratives about control, choice, and everyday decision-making.",
     images: ["assets/works/project3/image3.jpg", "assets/works/project3/image_2_3.png", "assets/works/project3/image_3_3.png"]
   },
   {
-    title: "Project 04",
-    desc: "Descripción breve del proyecto 04.",
+    title: "Objects with Memory",
+    desc: "A project centered on packaging as storytelling. It explores how materials, illustration, and typography can transform simple products into emotional artifacts, emphasizing craft, nostalgia, and the idea that objects can carry identity, memory, and personal connection beyond their practical use.",
     images: ["assets/works/project4/image4.jpg", "assets/works/project4/image_2_4.png", "assets/works/project4/image_3_4.png"]
   },
   {
-    title: "Project 05",
-    desc: "Descripción breve del proyecto 05.",
+    title: "Pattern as Language",
+    desc: "This project investigates pattern as a form of communication rather than decoration. Through color, repetition, and form, it explores how abstract surfaces can convey rhythm, emotion, and structure, inviting viewers to read design intuitively instead of intellectually.",
     images: ["assets/works/project5/image5.jpg", "assets/works/project5/image_2_5.png", "assets/works/project5/image_3_5.png"]
   },
   {
-    title: "Project 06",
-    desc: "Descripción breve del proyecto 06.",
+    title: "Constructed Identity",
+    desc: "This project explores how identity is built through visual and symbolic elements. It investigates the interplay between personal expression, cultural references, and design choices, questioning how we construct ourselves through the objects we surround ourselves with.",
     images: ["assets/works/project6/image6.jpg", "assets/works/project6/image_2_6.png", "assets/works/project6/image_3_6.png"]
   },
   {
-    title: "Project 07",
-    desc: "Descripción breve del proyecto 07.",
+    title: "Everyday Rituals",
+    desc: "A project exploring the significance of everyday actions and routines in shaping our identity and emotional well-being. It investigates how small, repeated gestures can become meaningful expressions of self, reflecting personal values and cultural practices.",
     images: ["assets/works/project7/image7.jpg", "assets/works/project7/image_2_7.png", "assets/works/project7/image_3_7.png"]
   },
   {
-    title: "Project 08",
-    desc: "Descripción breve del proyecto 08.",
+    title: "Playful Systems",
+    desc: "A project that explores systems through play. By simplifying structures and rules into visual elements, it questions how people interact with frameworks, constraints, and logic, suggesting that experimentation and humor can offer alternative ways to understand order, efficiency, and participation.",
     images: ["assets/works/project8/image8.jpg", "assets/works/project8/image_2_8.png", "assets/works/project8/image_3_8.png"]
   },
   {
-    title: "Project 09",
-    desc: "Descripción breve del proyecto 09.",
+    title: "Tactile Futures",
+    desc: "This project investigates the role of touch, texture, and materiality in a digital-forward world. It proposes design as a sensory experience, emphasizing physical interaction, crafted surfaces, and material experimentation as a way to reconnect users with objects beyond screens.",
     images: ["assets/works/project9/image9.jpg", "assets/works/project9/image_2_9.png", "assets/works/project9/image_3_9.png"]
   },
   {
-    title: "Project 10",
-    desc: "Descripción breve del proyecto 10.",
+    title: "Personal Mythologies",
+    desc: "A conceptual project centered on self-narrative. It explores how individuals construct personal myths through objects, style, and visual expression, blending reality and fiction to examine identity as an evolving story shaped by memory, desire, and cultural influence.",
     images: ["assets/works/project10/image10.jpg", "assets/works/project10/image_2_10.png", "assets/works/project10/image_3_10.png"]
   }
 ];
@@ -219,14 +219,6 @@ modal?.addEventListener("click", (e) => {
 // Navegación proyectos
 btnPrevProj?.addEventListener("click", prevProject);
 btnNextProj?.addEventListener("click", nextProject);
-
-if (btnPrevProj) {
-  btnPrevProj.addEventListener("click", () => {
-    currentProject = (currentProject - 1 + projects.length) % projects.length;
-    currentImage = 0;
-    renderProject(); // ⚠️ si en tu código se llama distinto, cambia esta línea
-  });
-}
 
 
 // Navegación imágenes dentro del proyecto
