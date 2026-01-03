@@ -1,18 +1,24 @@
-:root {
+:root{
   --font-title: 'Playfair Display', serif;
   --font-body: 'Montserrat', system-ui, sans-serif;
+
   --accent: #b48cff;
+  --lilac: #c9b6ff;
+
   --text: #111;
   --bg: #fff;
   --hero-bg: #f1f1f1;
+
   --border: rgba(0,0,0,0.08);
 }
 
-/* Base */
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* =========================
+   BASE
+========================= */
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
 
-body {
+body{
   margin: 0;
   font-family: var(--font-body);
   line-height: 1.5;
@@ -20,17 +26,16 @@ body {
   background: var(--bg);
 }
 
-.container {
+.container{
   width: min(100% - 2rem, 980px);
   margin-inline: auto;
 }
 
-.muted { opacity: 0.7; }
+.muted{ opacity: 0.7; }
 
 /* =========================
    NAVBAR
 ========================= */
-
 .site-header{
   position: sticky;
   top: 0;
@@ -85,8 +90,7 @@ body {
 /* =========================
    HERO + TRANSICIÓN
 ========================= */
-
-.hero {
+.hero{
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -96,20 +100,27 @@ body {
   transition: transform 900ms ease, opacity 900ms ease;
 }
 
-.hero-inner {
+.hero-inner{
   text-align: center;
   max-width: 720px;
+  position: relative;
 }
 
 .hero-content{
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   will-change: transform, filter, opacity;
   transition: transform 900ms ease, filter 900ms ease, opacity 900ms ease;
-    /* ajuste óptico del bloque */
+
+  /* ajuste óptico del bloque */
   transform: translateX(-3.5%);
 }
+
+.hero-title,
+.hero-btn{ position: relative; z-index: 5; }
 
 .hero-title{
   text-transform: uppercase;
@@ -119,14 +130,14 @@ body {
   text-align: center;
   margin: 0 0 2rem 0;
 
-  max-width: 16ch;      /* fuerza 2 líneas */
-  margin-inline: auto;  /* centra el bloque */
-  text-wrap: balance;   /* si tu navegador lo soporta, queda muy bien */
+  max-width: 16ch;
+  margin-inline: auto;
+  text-wrap: balance;
 }
 
 .hero-line{
   display: block;
-  white-space: nowrap; /* 👈 evita que se rompa en 3-4 líneas */
+  white-space: nowrap;
 }
 
 .hero-btn{
@@ -155,7 +166,7 @@ body {
 }
 
 /* Works: estado inicial + scroll margin */
-#works {
+#works{
   transform: translateY(140px);
   opacity: 0;
   transition: transform 900ms ease, opacity 900ms ease;
@@ -163,28 +174,28 @@ body {
 }
 
 /* Estado “mostrar works” */
-body.show-works .hero {
+body.show-works .hero{
   transform: translateY(-160px);
   opacity: 0;
   pointer-events: none;
 }
 
-body.show-works .hero-content {
+body.show-works .hero-content{
   transform: translateY(-100px);
   filter: blur(12px);
   opacity: 0.2;
 }
 
-body.show-works #works {
+body.show-works #works{
   transform: translateY(0);
   opacity: 1;
 }
 
 /* Accesibilidad */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce){
   .hero,
   .hero-content,
-  #works {
+  #works{
     transition: none;
     transform: none;
     filter: none;
@@ -193,32 +204,18 @@ body.show-works #works {
 }
 
 /* =========================
-   HERO STICKERS (CLEAN)
+   HERO STICKERS (SCOPED)
+   (IMPORTANTE: scoped para no romper About)
 ========================= */
-
-/* 1) Contexto: todo se posiciona relativo al hero */
-.hero-inner { position: relative; }
-.hero-content { position: relative; }
-
-/* 2) Capas (z-index):
-   - Fondo / stickers detrás del texto: z=1
-   - Texto + botón: z=5
-   - Doodles por encima de stickers pero debajo del texto: z=3
-*/
-.hero-title,
-.hero-btn { position: relative; z-index: 5; }
-
-/* 3) Contenedor stickers (zona donde viven) */
-.stickers{
+.hero .stickers{
   position: absolute;
   inset: -60px -60px auto -60px;
   height: 460px;
   pointer-events: none;
-  z-index: 1; /* debajo del título */
+  z-index: 1;
 }
 
-/* 4) Base sticker */
-.sticker{
+.hero .sticker{
   position: absolute;
   display: grid;
   place-items: center;
@@ -239,30 +236,21 @@ body.show-works #works {
   transform: rotate(var(--rot, 0deg));
 }
 
-/* =========================
-   FORMAS PRINCIPALES
-========================= */
-
-/* CÍRCULO AMARILLO (debe ir detrás del texto) */
-.sticker--sun{
+/* Formas hero */
+.hero .sticker--sun{
   --rot: -6deg;
   background: #ffe66b;
   border-radius: 999px;
-
   width: 90px;
   height: 90px;
-
   top: 20px;
   left: 35px;
-
   padding: 0;
   font-size: 1.2rem;
-
-  z-index: 0; /* aún más abajo dentro de stickers */
+  z-index: 0;
 }
 
-/* ESTRELLA LILA (starburst más estable) */
-.sticker--star{
+.hero .sticker--star{
   --rot: 8deg;
   background: #c9a7ff;
   width: 130px;
@@ -270,60 +258,43 @@ body.show-works #works {
   padding: 1.05rem 1.05rem;
   text-align: center;
   line-height: 1.05;
-
   top: 6px;
   right: 135px;
 }
 
-.sticker--star span{
-  display: block;
-  font-size: 0.72rem;
-}
+.hero .sticker--star span{ display:block; font-size: 0.72rem; }
 
-/* “NEW WORK” (vuelve como estaba: con trazo) */
-.sticker--oval{
+.hero .sticker--oval{
   --rot: -8deg;
   background: #9fe7d5;
   border-radius: 999px;
-
   top: 240px;
   left: 60px;
-
   padding: 0.55rem 1.05rem;
 }
 
-/* “STUDIO” (amarillo con trazo) */
-.sticker--bubble{
+.hero .sticker--bubble{
   --rot: 10deg;
   background: #ffe66b;
   border-radius: 999px;
-
   top: 250px;
   right: 110px;
-
   padding: 0.55rem 1.05rem;
 }
 
-/* “DESIGN” (con trazo, subido para que no tape la T) */
-.sticker--tag{
+.hero .sticker--tag{
   --rot: -10deg;
   background: #fff;
   border-radius: 10px;
-
   top: 130px;
   right: 295px;
-
   padding: 0.45rem 0.75rem;
 }
 
-/* =========================
-   DOTS (más grandes + más separados)
-   Ajusta SOLO left/top en % si quieres afinarlos
-========================= */
-
-.sticker--dot,
-.sticker--dot-2,
-.sticker--dot-3{
+/* Dots hero */
+.hero .sticker--dot,
+.hero .sticker--dot-2,
+.hero .sticker--dot-3{
   position: absolute;
   width: 22px;
   height: 22px;
@@ -333,142 +304,69 @@ body.show-works #works {
   box-shadow: 0 10px 18px rgba(0,0,0,0.08);
 }
 
-/* LILA (entre P y C aprox) */
-.sticker--dot{
-  background: #b48cff;
-  left: 55%;
-  top: 52%;
-}
+.hero .sticker--dot{ background:#b48cff; left:55%; top:52%; }
+.hero .sticker--dot-2{ background:#ffe66b; left:35%; top:32%; }
+.hero .sticker--dot-3{ background:#78d6ff; left:80%; top:25%; }
 
-/* AMARILLO (entre R y T aprox) */
-.sticker--dot-2{
-  background: #ffe66b;
-  left: 35%;
-  top: 32%;
-}
-
-/* AZUL (más hacia el final) */
-.sticker--dot-3{
-  background: #78d6ff;
-  left: 80%;
-  top: 25%;
-}
-
-/* =========================
-   DOODLES (SVG) - flechas/curvas “a boli”
-========================= */
-
-.doodles{
+/* Doodles hero */
+.hero .doodles{
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 3; /* por encima de stickers, debajo del texto */
+  z-index: 3;
 }
 
-.doodle{
+.hero .doodle{
   position: absolute;
   width: 360px;
   height: auto;
   opacity: 0.95;
 }
 
-/* Flecha izquierda */
-.doodle--1{
-  left: 30px;
-  top: 130px;
-  transform: rotate(-2deg);
+.hero .doodle--1{ left: 30px; top: 130px; transform: rotate(-2deg); }
+.hero .doodle--2{ right: -240px; top: -60px; transform: rotate(70deg); }
+
+/* Pop anim */
+@keyframes stickerPop{
+  0%{ transform: scale(0.6) rotate(var(--rot, 0deg)); opacity:0; filter: blur(2px); }
+  70%{ transform: scale(1.08) rotate(var(--rot, 0deg)); opacity:1; filter: blur(0); }
+  100%{ transform: scale(1) rotate(var(--rot, 0deg)); opacity:1; }
 }
 
-/* Flecha derecha */
-.doodle--2{
-  right: -240px;
-  top: -60px;
-  transform: rotate(70deg);
+.hero .sticker{ animation: stickerPop 750ms cubic-bezier(.34,1.56,.64,1) both; }
+.hero .sticker--sun{ animation-delay:80ms; }
+.hero .sticker--star{ animation-delay:160ms; }
+.hero .sticker--tag{ animation-delay:240ms; }
+.hero .sticker--oval{ animation-delay:320ms; }
+.hero .sticker--bubble{ animation-delay:400ms; }
+.hero .sticker--dot{ animation-delay:200ms; }
+.hero .sticker--dot-2{ animation-delay:300ms; }
+.hero .sticker--dot-3{ animation-delay:420ms; }
+
+.hero .doodle{ animation: stickerPop 700ms cubic-bezier(.2,.9,.2,1) both; }
+.hero .doodle--1{ animation-delay:260ms; }
+.hero .doodle--2{ animation-delay:460ms; }
+
+@media (prefers-reduced-motion: reduce){
+  .hero .sticker, .hero .doodle{ animation: none !important; }
 }
 
-/* POP IN al cargar */
-@keyframes stickerPop {
-  0% {
-    transform: scale(0.6) rotate(var(--rot, 0deg));
-    opacity: 0;
-    filter: blur(2px);
-  }
-  70% {
-    transform: scale(1.08) rotate(var(--rot, 0deg));
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    transform: scale(1) rotate(var(--rot, 0deg));
-    opacity: 1;
-  }
-}
-
-/* por defecto: todos los stickers hacen pop */
-.sticker { 
-  animation: stickerPop 750ms cubic-bezier(.34,1.56,.64,1) both; 
-}
-
-/* delays para que no aparezcan todos a la vez */
-.sticker--sun { animation-delay: 80ms; }
-.sticker--star { animation-delay: 160ms; }
-.sticker--tag { animation-delay: 240ms; }
-.sticker--oval { animation-delay: 320ms; }
-.sticker--bubble { animation-delay: 400ms; }
-.sticker--dot { animation-delay: 200ms; }
-.sticker--dot-2 { animation-delay: 300ms; }
-.sticker--dot-3 { animation-delay: 420ms; }
-
-/* Los doodles también (si quieres) */
-.doodle {
-  animation: stickerPop 700ms cubic-bezier(.2,.9,.2,1) both;
-}
-.doodle--1 { animation-delay: 260ms; }
-.doodle--2 { animation-delay: 460ms; }
-
-/* Accesibilidad */
-@media (prefers-reduced-motion: reduce) {
-  .sticker, .doodle { animation: none !important; }
-}
-
-
-/* =========================
-   HERO STICKERS — MOBILE OFF
-========================= */
-
+/* Hero stickers off en móvil */
 @media (max-width: 900px){
-  .stickers,
-  .doodles{
-    display: none;
-  }
+  .hero .stickers,
+  .hero .doodles{ display: none; }
 }
-
 
 /* =========================
-   WORKS – strip carousel (7 visibles desktop)
+   WORKS
 ========================= */
-
-.works-section {
-  padding: 3rem 0 2rem;
-}
-
-.works-title{
-  text-align: center;
-  font-family: var(--font-body); /* Montserrat */
-  font-weight: 5000;
-  font-size: clamp(4rem, 8vw, 6.5rem);
-  color: #000;
-  margin: 0;
-  letter-spacing: -0.02em;
-}
+.works-section{ padding: 3rem 0 2rem; }
 
 .works-section > .container{
-  margin-bottom: 1rem; /* separación con las imágenes */
-  padding-top: 1rem;   /* baja el título */
+  margin-bottom: 1rem;
+  padding-top: 1rem;
 }
 
-
-/* Carrusel a pantalla completa de ancho */
 /* Carrusel */
 .works-carousel{
   width: 100%;
@@ -478,7 +376,6 @@ body.show-works #works {
   min-height: 380px;
 }
 
-/* Track */
 .works-track{
   height: 100%;
   display: flex;
@@ -486,14 +383,12 @@ body.show-works #works {
   will-change: transform;
 }
 
-/* Slides A4 vertical */
 .work-slide{
   flex: 0 0 auto;
   height: 100%;
-  aspect-ratio: 1 / 1.414; /* A4 vertical */
+  aspect-ratio: 1 / 1.414;
 }
 
-/* Imagen dentro */
 .work-slide img{
   width: 100%;
   height: 100%;
@@ -501,111 +396,7 @@ body.show-works #works {
   display: block;
 }
 
-/* =========================
-   SECTIONS
-========================= */
-
-.section {
-  padding: 4rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.section h2{
-  margin: 0 0 0.75rem 0;
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-}
-
-/* Works: no usar la regla general de h2 */
-#works .works-title{
-  margin-top: 0.6rem;     /* antes era más grande */
-  margin-bottom: 0.5rem;    /* reduce el aire con las imágenes */
-
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: clamp(4.5rem, 9vw, 7rem);
-  color: #000;
-  letter-spacing: -0.03em;
-  text-align: center;
-}
-
-.placeholder {
-  margin-top: 1.25rem;
-  padding: 2rem;
-  border: 1px dashed rgba(0,0,0,0.25);
-  border-radius: 16px;
-}
-
-/* =========================
-   FORM
-========================= */
-
-.form {
-  margin-top: 1.25rem;
-  display: grid;
-  gap: 1rem;
-  max-width: 560px;
-}
-
-label {
-  display: grid;
-  gap: 0.4rem;
-  font-size: 0.95rem;
-}
-
-input, textarea {
-  padding: 0.85rem 0.9rem;
-  border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.2);
-  font: inherit;
-}
-
-.submit-btn {
-  justify-self: start;
-  border: none;
-  background: var(--text);
-  color: #fff;
-  padding: 0.8rem 1.1rem;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-.submit-btn:hover { opacity: 0.92; }
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer {
-  padding: 2rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.footer-inner {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.social {
-  display: flex;
-  gap: 1rem;
-}
-
-.social a {
-  color: inherit;
-  text-decoration: none;
-  opacity: 0.8;
-}
-
-.social a:hover { opacity: 1; }
-
-/* =========================
-   WORKS CLICK MODAL (Project Card)
-========================= */
-
-/* Para que el click sea limpio y sin estilos de botón */
+/* Click limpio */
 .work-card{
   all: unset;
   display: block;
@@ -613,24 +404,40 @@ input, textarea {
   height: 100%;
   cursor: pointer;
 }
-.work-card img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.work-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* =========================
+   SECTIONS (GENERIC)
+========================= */
+.section{
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
 }
 
-/* Modal wrapper */
+/* =========================
+   SECTION TITLES (XL)
+========================= */
+.section h2,
+.works-title{
+  margin: 0 0 1.6rem 0;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(4rem, 10vw, 6.8rem);
+  letter-spacing: -0.045em;
+  text-align: center;
+  line-height: 0.95;
+}
+
+/* =========================
+   PROJECT MODAL
+========================= */
 .project-modal{
   position: fixed;
   inset: 0;
   display: none;
   z-index: 9999;
 }
-.project-modal.is-open{
-  display: block;
-}
-
+.project-modal.is-open{ display: block; }
 
 .project-overlay{
   position: absolute;
@@ -639,7 +446,6 @@ input, textarea {
   backdrop-filter: blur(4px);
 }
 
-/* Dialog */
 .project-dialog{
   position: absolute;
   left: 50%;
@@ -650,28 +456,25 @@ input, textarea {
   background: #f6f6f6;
   border: 2px solid #111;
   border-radius: 18px;
-
-  overflow: visible; /* ✅ IMPORTANTE: para que no recorte las flechas */
+  overflow: visible; /* flechas fuera */
   box-shadow: 0 30px 80px rgba(0,0,0,0.25);
 }
 
-/* El recorte (bordes redondos) lo hacemos dentro */
 .project-grid{
   height: 100%;
   display: grid;
   grid-template-columns: 1.25fr 0.85fr;
-
-  overflow: hidden;     /* ✅ aquí sí */
-  border-radius: 18px;  /* ✅ aquí sí */
+  overflow: hidden;
+  border-radius: 18px;
   background: #f6f6f6;
 }
 
-/* Left media */
 .project-media{
   position: relative;
   background: #e9e9e9;
   overflow: hidden;
 }
+
 .project-image{
   width: 100%;
   height: 100%;
@@ -679,31 +482,23 @@ input, textarea {
   display: block;
 }
 
-/* Image arrows (inside left area) */
+/* Arrows images */
 .media-arrow{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-
   width: 40px;
   height: 40px;
   border-radius: 999px;
-
   border: 1px solid rgba(0,0,0,0.5);
   background: rgba(255,255,255,0.65);
   backdrop-filter: blur(4px);
-
   color: #111;
   font-size: 20px;
   line-height: 1;
-
   cursor: pointer;
   opacity: 0.85;
-
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease,
-    background 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 
 .media-arrow--prev{ left: 14px; }
@@ -719,23 +514,19 @@ input, textarea {
   position: absolute;
   left: 16px;
   bottom: 16px;
-
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
-
   padding: 0.35rem 0.6rem;
-
   border-radius: 999px;
   border: 1px solid rgba(0,0,0,0.5);
   background: rgba(255,255,255,0.7);
   backdrop-filter: blur(6px);
-
   color: #111;
 }
 
-/* Right info */
+/* Right */
 .project-info{
   padding: 2.2rem 2rem;
   background: #f6f6f6;
@@ -744,6 +535,7 @@ input, textarea {
   justify-content: center;
   gap: 1rem;
 }
+
 .project-title{
   margin: 0;
   font-family: var(--font-body);
@@ -751,6 +543,7 @@ input, textarea {
   letter-spacing: -0.02em;
   color: #111;
 }
+
 .project-desc{
   margin: 0;
   font-family: var(--font-body);
@@ -765,26 +558,18 @@ input, textarea {
   position: absolute;
   top: 16px;
   right: 16px;
-
   width: 36px;
   height: 36px;
   border-radius: 999px;
-
   border: 1px solid rgba(0,0,0,0.5);
   background: rgba(255,255,255,0.7);
   backdrop-filter: blur(6px);
-
   font-size: 18px;
   font-weight: 500;
   color: #111;
-
   cursor: pointer;
   opacity: 0.8;
-
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease,
-    background 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 
 .project-close:hover{
@@ -793,38 +578,30 @@ input, textarea {
   transform: scale(1.05);
 }
 
-/* Project nav arrows */
+/* Project nav (prev/next) */
 .project-nav{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-
   width: 44px;
   height: 44px;
   border-radius: 999px;
-
   border: 1.5px solid rgba(0,0,0,0.6);
   background: rgba(255,255,255,0.75);
   backdrop-filter: blur(6px);
-
   font-size: 22px;
   font-weight: 500;
   color: #111;
-
   cursor: pointer;
   z-index: 50;
-
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease,
-    opacity 0.25s ease;
+  transition: background 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
 }
 
 .project-nav--prev{ left: -56px; }
 .project-nav--next{ right: -56px; }
 
 .project-nav:hover{
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255,255,255,0.95);
   transform: translateY(-50%) scale(1.05);
 }
 
@@ -832,47 +609,53 @@ input, textarea {
   transform: translateY(-50%) scale(0.97);
 }
 
-/* Responsive: en móvil ponemos 1 columna */
+/* Modal responsive */
 @media (max-width: 800px){
   .project-dialog{
     width: calc(100vw - 2rem);
     height: calc(100vh - 2rem);
     border-radius: 16px;
   }
+
   .project-grid{
     grid-template-columns: 1fr;
     grid-template-rows: 1.1fr 0.9fr;
   }
+
   .project-info{
     padding: 1.4rem 1.2rem;
     justify-content: flex-start;
   }
+
   .project-desc{ max-width: none; }
+
   .project-nav--prev{ left: 10px; }
   .project-nav--next{ right: 10px; }
+
+  /* X siempre visible en móvil */
+  .project-close{
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    z-index: 9999;
+  }
 }
 
-/* ===== About Me ===== */
+/* =========================
+   ABOUT (SCOPED)
+========================= */
 .about{
   padding: 5.5rem 0;
 }
 
-/* Ajusta esto a tu layout (si ya tienes .container, usa ese) */
 .about-inner{
   width: min(1100px, calc(100vw - 3rem));
   margin: 0 auto;
 }
 
-/* Usa EXACTAMENTE tu clase de título de Works.
-   Si "Works" ya tiene .section-title, esto no hace falta tocarlo. */
-.section-title{
-  font-size: clamp(2.4rem, 5vw, 4.2rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  margin: 0 0 2.2rem 0;
-}
-
-/* Grid principal */
 .about-grid{
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
@@ -880,7 +663,6 @@ input, textarea {
   align-items: center;
 }
 
-/* ===== Visual ===== */
 .about-visual{
   position: relative;
   min-height: 420px;
@@ -899,80 +681,66 @@ input, textarea {
   place-items: center;
 }
 
-/* Foto circular con marco */
 .about-photo img{
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 999px;
-  border: 2px solid #111;     /* mismo trazo que el resto de la web */
+  border: 2px solid #111;
   background: #f6f6f6;
   box-shadow: 0 18px 45px rgba(0,0,0,0.18);
 }
 
-
-/* ===== Stickers base ===== */
-.sticker{
+/* Stickers About (no se pisan con Hero) */
+.about .sticker{
   position: absolute;
   pointer-events: none;
   z-index: 1;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 0;
 }
 
-/* Círculo lila sólido detrás, movido a la izquierda (sin trazo) */
-.sticker--blob{
+.about .sticker--blob{
   width: min(360px, 70%);
   aspect-ratio: 1 / 1;
   border-radius: 999px;
-  background: var(--lilac, #c9b6ff); /* pon aquí tu lila exacto */
-  left: 4%;
-  top: 2%;
+  background: var(--lilac);
+  left: 6%;
+  top: 50%;
   transform: translateY(-50%) rotate(-6deg) scaleX(1.02) scaleY(0.98);
   z-index: 1;
 }
 
-/* Círculo solo trazo, más a la derecha */
-.sticker--ring{
-  width: min(350px, 65%);
+.about .sticker--ring{
+  width: min(380px, 72%);
   aspect-ratio: 1 / 1;
   border-radius: 999px;
-
-  background: none;      /* ← CLAVE */
-  border: 2px solid #111;       /* solo trazo */
-
-  position: absolute;
-  right: 8%;
-  top: 25%;
+  border: 2px solid #111;
+  background: transparent;
+  right: 2%;
+  top: 56%;
   transform: translateY(-50%);
-
   z-index: 2;
   opacity: 0.95;
 }
 
-/* Ring SIEMPRE transparente (por si hay estilos globales fuera de este archivo) */
-.sticker--ring{
-  background-color: transparent;
-  box-shadow: none;
-  filter: none;
-}
+.about .sticker--ring::before,
+.about .sticker--ring::after{ content: none; }
 
-.sticker--ring::before,
-.sticker--ring::after{
-  content: none;
-}
-
-/* Sticker nombre encima de la foto */
-.name-sticker{
+/* Name sticker */
+.about .name-sticker{
   position: absolute;
-  z-index: 6;                 /* por encima de la foto y todo */
+  z-index: 6;
   top: 28%;
-  left: 65%;
-  transform: translate(-50%, -50%) rotate(20deg);
+  left: 38%;
+  transform: translate(-50%, -50%) rotate(-10deg);
 
   padding: 0.55rem 0.9rem;
   border: 2px solid #111;
   border-radius: 999px;
-
-  background: #f6f6f6;        /* o #fff si lo prefieres */
+  background: #f6f6f6;
   color: #111;
 
   font-weight: 700;
@@ -980,34 +748,29 @@ input, textarea {
   letter-spacing: 0.01em;
 
   box-shadow: 0 14px 30px rgba(0,0,0,0.14);
+  pointer-events: none;
 }
 
-/* ===== Doodles (reutilizados del Main) ===== */
-.about-visual .doodle{
+/* Doodle About (scoped) */
+.about .doodle{
   position: absolute;
   pointer-events: none;
-  width: 350px;
+  width: 380px; /* en About la flecha debe ser pequeña */
   z-index: 5;
   opacity: 0.9;
 }
 
-.about-visual .doodle--1{
-  top: 4%;
-  left: 50%;
-  transform: rotate(-60deg);
+.about .doodle--1{
+  top: 2%;
+  right: -24%;
+  transform: rotate(12deg);
 }
 
-/* Responsive: recoloca un poco para móvil */
-@media (max-width: 860px){
-  .name-sticker{
-    top: 12%;
-    left: 50%;
-  }
-}
-
-/* ===== Texto ===== */
+/* Texto About */
 .about-text{
   max-width: 52ch;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .about-text p{
@@ -1024,15 +787,263 @@ input, textarea {
   padding-left: 0.9rem;
 }
 
-/* ===== Responsive ===== */
+/* =========================
+   ABOUT — MOBILE: MISMO TAMAÑO QUE WORKS + SOLO FOTO
+========================= */
 @media (max-width: 860px){
+  /* mismo ritmo que Works */
+  .about{
+    padding: 3rem 0 2rem;
+  }
+
+  .about-inner{
+    width: min(100% - 2rem, 980px);
+    margin-inline: auto;
+  }
+
+  /* una sola columna */
   .about-grid{
     grid-template-columns: 1fr;
+    gap: 0;
   }
+
+  /* centra visual */
   .about-visual{
-    min-height: 380px;
+    min-height: unset;
+    overflow: visible;
+    display: grid;
+    place-items: center;
+    padding: 0;
   }
-  .about-text{
-    max-width: 65ch;
+
+  /* OCULTA TODO menos la foto */
+  .about .sticker,
+  .about .name-sticker,
+  .about .doodle,
+
+  /* foto estable y centrada */
+  .about-photo{
+    width: min(300px, 70vw);
   }
 }
+
+/* =========================
+   ABOUT — MOBILE INTERACTIVE
+========================= */
+@media (max-width: 860px){
+
+  /* Botón */
+  .about-mobile-toggle{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.25rem;
+  }
+
+  .about-btn{
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    padding: 0.7rem 1.6rem;
+    border-radius: 999px;
+    border: 1.5px solid #111;
+    background: transparent;
+    color: #111;
+
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+
+  .about-btn:hover{
+    background: #111;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  /* Texto oculto por defecto */
+  .about-text-inner{
+    display: none;
+    margin-top: 1.6rem;
+    animation: aboutReveal 300ms ease both;
+  }
+
+  /* Cuando está abierto */
+  .about-text.is-open .about-text-inner{
+    display: block;
+  }
+
+  @keyframes aboutReveal{
+    from{
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to{
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* =========================
+   FORM
+========================= */
+.form{
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 1rem;
+  max-width: 560px;
+}
+
+label{
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+}
+
+input, textarea{
+  padding: 0.85rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.2);
+  font: inherit;
+}
+
+.submit-btn{
+  justify-self: start;
+  border: none;
+  background: var(--text);
+  color: #fff;
+  padding: 0.8rem 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.submit-btn:hover{ opacity: 0.92; }
+
+/* =========================
+   FOOTER
+========================= */
+.footer{
+  padding: 2rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.social{
+  display: flex;
+  gap: 1rem;
+}
+
+.social a{
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.social a:hover{ opacity: 1; }
+
+/* =========================
+   ABOUT — Desktop vs Mobile toggle
+   (pegar AL FINAL del CSS)
+========================= */
+
+/* DESKTOP: no mostramos botón, el texto se ve normal */
+.about-mobile-toggle{ display: none; }
+.about-text-inner{ display: block; }
+
+/* MÓVIL: foto + botón, texto desplegable */
+@media (max-width: 860px){
+
+  /* About con el mismo padding que Works en móvil */
+  .about{ padding: 3rem 0 2rem; }
+
+  /* Layout simple */
+  .about-grid{
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Visual centrado */
+  .about-visual{
+    min-height: unset;
+    padding: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  /* En móvil quitamos adornos, pero dejamos foto */
+  .about .sticker,
+  .about .doodle,
+  .about .name-sticker{
+    display: none !important;
+  }
+
+  /* FOTO: tamaño estable */
+  .about-photo{
+    width: min(300px, 70vw);
+    margin: 0;
+  }
+
+  /* TEXTO: existe (para contener el botón), pero el contenido está plegado */
+  .about-text{
+    display: block !important;
+    max-width: 62ch;
+    margin: 0 auto;
+    text-align: left;
+    padding-top: 1.25rem;
+  }
+
+  /* Botón visible solo en móvil */
+  .about-mobile-toggle{
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-btn{
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.6rem;
+    border-radius: 999px;
+    border: 1.5px solid #111;
+    background: transparent;
+    color: #111;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+
+  .about-btn:hover{
+    background: #111;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  /* Texto oculto por defecto en móvil */
+  .about-text-inner{
+    display: none;
+    margin-top: 1.25rem;
+    animation: aboutReveal 260ms ease both;
+  }
+
+  /* Abierto */
+  .about-text.is-open .about-text-inner{
+    display: block;
+  }
+
+  @keyframes aboutReveal{
+    from{ opacity: 0; transform: translateY(-6px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+}
+
+
