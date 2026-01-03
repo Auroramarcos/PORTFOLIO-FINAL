@@ -46,7 +46,6 @@ body{
 }
 
 .nav{
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -127,7 +126,6 @@ body{
   font-weight: 800;
   font-size: clamp(3.2rem, 8.2vw, 6.2rem);
   line-height: 0.95;
-  text-align: center;
   margin: 0 0 2rem 0;
 
   max-width: 16ch;
@@ -205,7 +203,6 @@ body.show-works #works{
 
 /* =========================
    HERO STICKERS (SCOPED)
-   (IMPORTANTE: scoped para no romper About)
 ========================= */
 .hero .stickers{
   position: absolute;
@@ -389,14 +386,6 @@ body.show-works #works{
   aspect-ratio: 1 / 1.414;
 }
 
-.work-slide img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Click limpio */
 .work-card{
   all: unset;
   display: block;
@@ -404,7 +393,13 @@ body.show-works #works{
   height: 100%;
   cursor: pointer;
 }
-.work-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+.work-card img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 /* =========================
    SECTIONS (GENERIC)
@@ -632,7 +627,6 @@ body.show-works #works{
   .project-nav--prev{ left: 10px; }
   .project-nav--next{ right: 10px; }
 
-  /* X siempre visible en móvil */
   .project-close{
     position: fixed;
     top: 12px;
@@ -642,14 +636,18 @@ body.show-works #works{
     font-size: 20px;
     z-index: 9999;
   }
+  .media-counter{
+  top: 12px;
+  left: 12px;
+  bottom: auto;
+  z-index: 9999;
+}
 }
 
 /* =========================
    ABOUT (SCOPED)
 ========================= */
-.about{
-  padding: 5.5rem 0;
-}
+.about{ padding: 5.5rem 0; }
 
 .about-inner{
   width: min(1100px, calc(100vw - 3rem));
@@ -718,16 +716,12 @@ body.show-works #works{
   aspect-ratio: 1 / 1;
   border-radius: 999px;
   border: 2px solid #111;
-  background: transparent;
   right: 2%;
   top: 56%;
   transform: translateY(-50%);
   z-index: 2;
   opacity: 0.95;
 }
-
-.about .sticker--ring::before,
-.about .sticker--ring::after{ content: none; }
 
 /* Name sticker */
 .about .name-sticker{
@@ -746,16 +740,15 @@ body.show-works #works{
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: 0.01em;
-
   box-shadow: 0 14px 30px rgba(0,0,0,0.14);
   pointer-events: none;
 }
 
-/* Doodle About (scoped) */
+/* Doodle About */
 .about .doodle{
   position: absolute;
   pointer-events: none;
-  width: 380px; /* en About la flecha debe ser pequeña */
+  width: 380px;
   z-index: 5;
   opacity: 0.9;
 }
@@ -770,7 +763,6 @@ body.show-works #works{
 .about-text{
   max-width: 52ch;
   overflow-wrap: anywhere;
-  word-break: normal;
 }
 
 .about-text p{
@@ -787,56 +779,56 @@ body.show-works #works{
   padding-left: 0.9rem;
 }
 
-/* =========================
-   ABOUT — MOBILE: MISMO TAMAÑO QUE WORKS + SOLO FOTO
-========================= */
+/* Desktop: texto visible, botón oculto */
+.about-mobile-toggle{ display: none; }
+.about-text-inner{ display: block; }
+
+/* Mobile: foto + botón, texto plegable */
 @media (max-width: 860px){
-  /* mismo ritmo que Works */
-  .about{
-    padding: 3rem 0 2rem;
-  }
+  .about{ padding: 3rem 0 2rem; }
 
   .about-inner{
     width: min(100% - 2rem, 980px);
     margin-inline: auto;
   }
 
-  /* una sola columna */
   .about-grid{
     grid-template-columns: 1fr;
     gap: 0;
   }
 
-  /* centra visual */
   .about-visual{
     min-height: unset;
-    overflow: visible;
+    padding: 0;
     display: grid;
     place-items: center;
-    padding: 0;
   }
 
-  /* OCULTA TODO menos la foto */
+  /* En móvil quitamos adornos */
   .about .sticker,
-  .about .name-sticker,
-  .about .doodle,
-
-  /* foto estable y centrada */
-  .about-photo{
-    width: min(300px, 70vw);
-  }
+.about .doodle{
+  display: none !important;
 }
 
-/* =========================
-   ABOUT — MOBILE INTERACTIVE
-========================= */
-@media (max-width: 860px){
+.about .name-sticker{
+  display: block;
+}
 
-  /* Botón */
+  .about-photo{
+    width: min(300px, 70vw);
+    margin: 0;
+  }
+
+  .about-text{
+    max-width: 62ch;
+    margin: 0 auto;
+    padding-top: 1.25rem;
+    text-align: left;
+  }
+
   .about-mobile-toggle{
     display: flex;
     justify-content: center;
-    margin-top: 1.25rem;
   }
 
   .about-btn{
@@ -846,12 +838,11 @@ body.show-works #works{
     letter-spacing: 0.12em;
     text-transform: uppercase;
 
-    padding: 0.7rem 1.6rem;
+    padding: 0.75rem 1.6rem;
     border-radius: 999px;
     border: 1.5px solid #111;
     background: transparent;
     color: #111;
-
     cursor: pointer;
     transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
   }
@@ -862,27 +853,128 @@ body.show-works #works{
     transform: translateY(-1px);
   }
 
-  /* Texto oculto por defecto */
   .about-text-inner{
     display: none;
-    margin-top: 1.6rem;
-    animation: aboutReveal 300ms ease both;
+    margin-top: 1.25rem;
+    animation: aboutReveal 260ms ease both;
   }
 
-  /* Cuando está abierto */
   .about-text.is-open .about-text-inner{
     display: block;
   }
 
   @keyframes aboutReveal{
-    from{
-      opacity: 0;
-      transform: translateY(-6px);
-    }
-    to{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from{ opacity: 0; transform: translateY(-6px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* =========================
+   PROGRAMS
+========================= */
+.programs{
+  border-top: 1px solid var(--border);
+}
+
+.programs .works-title{
+  margin-bottom: 4rem;
+}
+
+.programs-grid{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.program-chip{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 0.95rem;
+  border-radius: 999px;
+  border: 1.5px solid #111;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #111;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
+
+@media (max-width: 600px){
+  .programs-grid{
+    justify-content: flex-start;
+  }
+
+  .program-chip{
+    font-size: 0.8rem;
+    padding: 0.6rem 0.85rem;
+  }
+}
+
+.programs-grid{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.program-chip{
+  --level: 0;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid #111;
+  background: #fff;
+  overflow: hidden;
+
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+}
+
+.program-chip::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: rgba(201,182,255,0.55);
+  transition: width 700ms ease;
+  z-index: 0;
+}
+
+.program-chip:hover::before{
+  width: calc(var(--level) * 1%);
+}
+
+
+.program-chip span{
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 600px){
+  .programs-grid{ justify-content: flex-start; }
+  .program-chip{
+    font-size: 0.8rem;
+    padding: 0.65rem 0.9rem;
   }
 }
 
@@ -949,101 +1041,5 @@ input, textarea{
 }
 
 .social a:hover{ opacity: 1; }
-
-/* =========================
-   ABOUT — Desktop vs Mobile toggle
-   (pegar AL FINAL del CSS)
-========================= */
-
-/* DESKTOP: no mostramos botón, el texto se ve normal */
-.about-mobile-toggle{ display: none; }
-.about-text-inner{ display: block; }
-
-/* MÓVIL: foto + botón, texto desplegable */
-@media (max-width: 860px){
-
-  /* About con el mismo padding que Works en móvil */
-  .about{ padding: 3rem 0 2rem; }
-
-  /* Layout simple */
-  .about-grid{
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  /* Visual centrado */
-  .about-visual{
-    min-height: unset;
-    padding: 0;
-    display: grid;
-    place-items: center;
-  }
-
-  /* En móvil quitamos adornos, pero dejamos foto */
-  .about .sticker,
-  .about .doodle,
-  .about .name-sticker{
-    display: none !important;
-  }
-
-  /* FOTO: tamaño estable */
-  .about-photo{
-    width: min(300px, 70vw);
-    margin: 0;
-  }
-
-  /* TEXTO: existe (para contener el botón), pero el contenido está plegado */
-  .about-text{
-    display: block !important;
-    max-width: 62ch;
-    margin: 0 auto;
-    text-align: left;
-    padding-top: 1.25rem;
-  }
-
-  /* Botón visible solo en móvil */
-  .about-mobile-toggle{
-    display: flex;
-    justify-content: center;
-  }
-
-  .about-btn{
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.75rem 1.6rem;
-    border-radius: 999px;
-    border: 1.5px solid #111;
-    background: transparent;
-    color: #111;
-    cursor: pointer;
-    transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
-  }
-
-  .about-btn:hover{
-    background: #111;
-    color: #fff;
-    transform: translateY(-1px);
-  }
-
-  /* Texto oculto por defecto en móvil */
-  .about-text-inner{
-    display: none;
-    margin-top: 1.25rem;
-    animation: aboutReveal 260ms ease both;
-  }
-
-  /* Abierto */
-  .about-text.is-open .about-text-inner{
-    display: block;
-  }
-
-  @keyframes aboutReveal{
-    from{ opacity: 0; transform: translateY(-6px); }
-    to{ opacity: 1; transform: translateY(0); }
-  }
-}
 
 
