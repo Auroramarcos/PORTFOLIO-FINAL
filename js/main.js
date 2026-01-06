@@ -2,6 +2,43 @@
    GLOBAL WRAPPER
 ========================================================= */
 (() => {
+  /* =========================================================
+     NAV – Mobile hamburger
+  ========================================================= */
+  const header = document.querySelector(".site-header");
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.getElementById("navLinks");
+
+  const closeNav = () => {
+    header?.classList.remove("is-open");
+    navToggle?.setAttribute("aria-expanded", "false");
+  };
+
+  navToggle?.addEventListener("click", () => {
+    const isOpen = header.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  // Cierra al clicar un link del menú (móvil)
+  navLinks?.addEventListener("click", (e) => {
+    if (e.target.closest("a")) closeNav();
+  });
+
+    // Cierra con Escape
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeNav();
+  });
+
+  // (Opcional) Cierra si clicas fuera del menú / botón
+  document.addEventListener("click", (e) => {
+    if (!header?.classList.contains("is-open")) return;
+
+    const clickedToggle = e.target.closest("#navToggle");
+    const clickedMenu = e.target.closest("#navLinks");
+
+    if (!clickedToggle && !clickedMenu) closeNav();
+  });
+
 
   /* =========================================================
      HERO – Discover button + show hero on scroll top
@@ -24,6 +61,26 @@
   window.addEventListener("scroll", showHeroIfTop, { passive: true });
   showHeroIfTop();
 
+  /* =========================================================
+     CONTACT FORM – Prevent real submit (visual form)
+  ========================================================= */
+  const contactForm = document.querySelector(".contact-form");
+
+  contactForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // Si falta algo required, el navegador lo mostrará
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+
+    // Si todo ok (form visual), puedes mostrar un mensaje simple
+    alert("Thanks! Your message is ready to be sent (visual form).");
+
+    // Opcional: limpiar campos
+    contactForm.reset();
+  });
 
   /* =========================================================
      FOOTER – Current year
@@ -31,7 +88,26 @@
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* =========================================================
+     BACK TO TOP
+  ========================================================= */
+  const backToTop = document.getElementById("backToTop");
 
+  const toggleBackToTop = () => {
+    if (window.scrollY > 500) {
+      backToTop?.classList.add("is-visible");
+    } else {
+      backToTop?.classList.remove("is-visible");
+    }
+  };
+
+  backToTop?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", toggleBackToTop, { passive: true });
+
+  
   /* =========================================================
      WORKS CAROUSEL – Infinite autoplay track
   ========================================================= */

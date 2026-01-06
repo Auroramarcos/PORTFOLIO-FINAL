@@ -18,16 +18,32 @@
 
   <body>
     <!-- HEADER / NAV -->
-    <header class="site-header">
-      <nav class="nav">
-        <a class="brand" href="#top">MeganStudio</a>
+<header class="site-header">
+  <nav class="nav" aria-label="Primary navigation">
+    <a class="brand" href="#top">AuroraStudio</a>
 
-        <ul class="nav-links">
-          <li><a class="nav-link" href="#about">About me</a></li>
-          <li><a class="nav-link" href="#contact">Contact me</a></li>
-        </ul>
-      </nav>
-    </header>
+    <!-- Botón hamburguesa (solo móvil) -->
+    <button
+      class="nav-toggle"
+      id="navToggle"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="navLinks"
+    >
+      <span class="nav-toggle-line"></span>
+      <span class="nav-toggle-line"></span>
+      <span class="nav-toggle-line"></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a class="nav-link" href="#about">About me</a></li>
+      <li><a class="nav-link" href="#programs">Programs</a></li>
+      <li><a class="nav-link" href="#contact">Contact me</a></li>
+    </ul>
+  </nav>
+</header>
+
 
     <main>
       <!-- HERO -->
@@ -188,7 +204,7 @@
 
               <img class="doodle doodle--1" src="assets/svg/svg_01.svg" alt="" aria-hidden="true" />
 
-              <span class="name-sticker" aria-hidden="true">Megan</span>
+              <span class="name-sticker" aria-hidden="true">Aurora</span>
 
               <figure class="about-photo">
                 <img src="assets/about/me.JPG" alt="Foto de Megan" loading="lazy" />
@@ -268,40 +284,99 @@
 </section>
   
       <!-- CONTACT -->
-      <section class="section" id="contact">
-        <div class="container">
-          <h2>Contact me</h2>
+<section class="section contact" id="contact">
+  <div class="container contact-inner">
+    <h2 class="works-title">Contact me</h2>
 
-          <form class="form" action="#" method="post" novalidate>
-            <label>
-              Name
-              <input type="text" name="name" placeholder="Your name" />
-            </label>
+    <p class="contact-intro muted">
+      If you’d like to collaborate, request a quote, or simply say hello, send me a message.
+    </p>
 
-            <label>
-              Email
-              <input type="email" name="email" placeholder="you@email.com" />
-            </label>
+    <div class="contact-grid">
+      <!-- Left: info cards -->
+      <div class="contact-cards" aria-label="Contact details">
+        <a class="contact-card" href="mailto:hello@aurorastudio.com">
+          <span class="contact-label">Email</span>
+          <span class="contact-value">hello@aurorastudio.com</span>
+        </a>
 
-            <label>
-              Message
-              <textarea name="message" rows="5" placeholder="Write your message..."></textarea>
-            </label>
-
-            <button class="submit-btn" type="submit">Send</button>
-
-            <p class="form-note muted">
-              *El formulario es visual (puedes conectarlo más adelante si quieres).
-            </p>
-          </form>
+        <div class="contact-card">
+          <span class="contact-label">Based in</span>
+          <span class="contact-value">Madrid · Available for freelance</span>
         </div>
-      </section>
-    </main>
+
+        <div class="contact-card">
+          <span class="contact-label">Social</span>
+          <span class="contact-value">
+            <a href="#" class="contact-link">Instagram</a>
+            <span class="contact-dot">·</span>
+            <a href="#" class="contact-link">Behance</a>
+            <span class="contact-dot">·</span>
+            <a href="#" class="contact-link">LinkedIn</a>
+          </span>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <form
+        class="form contact-form"
+        action="#"
+        method="post"
+        aria-label="Contact form"
+      >
+        <label>
+          Name
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            required
+            aria-label="Your name"
+          />
+        </label>
+
+        <label>
+          Email
+          <input
+            type="email"
+            name="email"
+            placeholder="you@email.com"
+            required
+            aria-label="Your email address"
+          />
+        </label>
+
+        <label>
+          Message
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="Write your message..."
+            required
+            aria-label="Your message"
+          ></textarea>
+        </label>
+
+        <button
+          class="submit-btn"
+          type="submit"
+          aria-label="Send contact form"
+        >
+          Send
+        </button>
+
+        <p class="form-note muted">
+          *El formulario es visual (puedes conectarlo más adelante si quieres).
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
 
     <!-- FOOTER -->
     <footer class="footer">
       <div class="container footer-inner">
-        <p class="muted">© <span id="year"></span> YourName. All rights reserved.</p>
+        <p class="muted">© <span id="year"></span> AuroraStudio. All rights reserved.</p>
 
         <div class="social">
           <a href="#" aria-label="Instagram">Instagram</a>
@@ -310,6 +385,10 @@
         </div>
       </div>
     </footer>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+  ↑
+  </button>
+
   </body>
 </html>
 
