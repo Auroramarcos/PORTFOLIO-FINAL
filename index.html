@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" id="top">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,37 +17,38 @@
   </head>
 
   <body>
+    <a class="skip-link" href="#works">Skip to content</a>
+
     <!-- HEADER / NAV -->
-<header class="site-header">
-  <nav class="nav" aria-label="Primary navigation">
-    <a class="brand" href="#top">AuroraStudio</a>
+    <header class="site-header" id="siteHeader">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Go to top">AuroraStudio</a>
 
-    <!-- Botón hamburguesa (solo móvil) -->
-    <button
-      class="nav-toggle"
-      id="navToggle"
-      type="button"
-      aria-label="Open menu"
-      aria-expanded="false"
-      aria-controls="navLinks"
-    >
-      <span class="nav-toggle-line"></span>
-      <span class="nav-toggle-line"></span>
-      <span class="nav-toggle-line"></span>
-    </button>
+        <!-- Hamburger (mobile) -->
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="navLinks"
+        >
+          <span class="nav-toggle-line"></span>
+          <span class="nav-toggle-line"></span>
+          <span class="nav-toggle-line"></span>
+        </button>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a class="nav-link" href="#about">About me</a></li>
-      <li><a class="nav-link" href="#programs">Skills & Tools</a></li>
-      <li><a class="nav-link" href="#contact">Contact me</a></li>
-    </ul>
-  </nav>
-</header>
-
+        <ul class="nav-links" id="navLinks">
+          <li><a class="nav-link" href="#about">About me</a></li>
+          <li><a class="nav-link" href="#programs">Skills &amp; Tools</a></li>
+          <li><a class="nav-link" href="#contact">Contact me</a></li>
+        </ul>
+      </nav>
+    </header>
 
     <main>
       <!-- HERO -->
-      <section class="hero" id="top">
+      <section class="hero" aria-label="Hero">
         <div class="hero-inner">
           <div class="hero-content" id="heroContent">
             <!-- STICKERS -->
@@ -87,7 +88,7 @@
       </section>
 
       <!-- WORKS -->
-      <section class="section works-section" id="works">
+      <section class="section works-section" id="works" aria-label="Works section">
         <div class="container">
           <h2 class="works-title">Works</h2>
         </div>
@@ -164,8 +165,12 @@
 
         <div class="project-dialog" role="dialog" aria-modal="true" aria-label="Project details">
           <!-- Navegación proyectos -->
-          <button class="project-nav project-nav--prev" id="projPrev" type="button" aria-label="Previous project">‹</button>
-          <button class="project-nav project-nav--next" id="projNext" type="button" aria-label="Next project">›</button>
+          <button class="project-nav project-nav--prev" id="projPrev" type="button" aria-label="Previous project">
+            ‹
+          </button>
+          <button class="project-nav project-nav--next" id="projNext" type="button" aria-label="Next project">
+            ›
+          </button>
 
           <!-- Cerrar -->
           <button class="project-close" id="projClose" type="button" aria-label="Close">×</button>
@@ -173,11 +178,15 @@
           <div class="project-grid">
             <!-- IMAGEN -->
             <div class="project-media">
-              <button class="media-arrow media-arrow--prev" id="imgPrev" type="button" aria-label="Previous image">‹</button>
+              <button class="media-arrow media-arrow--prev" id="imgPrev" type="button" aria-label="Previous image">
+                ‹
+              </button>
 
               <img class="project-image" id="projImage" src="" alt="Project image" />
 
-              <button class="media-arrow media-arrow--next" id="imgNext" type="button" aria-label="Next image">›</button>
+              <button class="media-arrow media-arrow--next" id="imgNext" type="button" aria-label="Next image">
+                ›
+              </button>
 
               <div class="media-counter" id="imgCounter">1 / 3</div>
             </div>
@@ -192,7 +201,7 @@
       </div>
 
       <!-- ABOUT -->
-      <section class="about" id="about">
+      <section class="about" id="about" aria-label="About me section">
         <div class="about-inner">
           <h2 class="works-title">About me</h2>
 
@@ -207,14 +216,14 @@
               <span class="name-sticker" aria-hidden="true">Aurora</span>
 
               <figure class="about-photo">
-                <img src="assets/about/me.JPG" alt="Foto de Megan" loading="lazy" />
+                <img src="assets/about/me.JPG" alt="Foto de Aurora" loading="lazy" />
               </figure>
             </div>
 
             <!-- Derecha: texto + botón móvil -->
-            <div class="about-text">
+            <div class="about-text" id="aboutText">
               <div class="about-mobile-toggle">
-                <button class="about-btn" type="button" aria-expanded="false" aria-controls="aboutTextInner">
+                <button class="about-btn" id="aboutBtn" type="button" aria-expanded="false" aria-controls="aboutTextInner">
                   Meet me
                 </button>
               </div>
@@ -238,157 +247,101 @@
         </div>
       </section>
 
-    <!-- PROGRAMS -->
-<section class="section programs" id="programs">
-  <div class="container">
-    <h2 class="works-title">Skills & Tools</h2>
+      <!-- PROGRAMS -->
+      <section class="section programs" id="programs" aria-label="Skills and tools section">
+        <div class="container">
+          <h2 class="works-title">Skills &amp; Tools</h2>
 
-    <div class="programs-grid" role="list">
-      <div class="program-chip" role="listitem" data-level="80">
-        <span>Adobe Photoshop</span>
-      </div>
+          <div class="programs-grid" role="list">
+            <div class="program-chip" role="listitem" data-level="80"><span>Adobe Photoshop</span></div>
+            <div class="program-chip" role="listitem" data-level="90"><span>Adobe Illustrator</span></div>
+            <div class="program-chip" role="listitem" data-level="85"><span>Adobe InDesign</span></div>
+            <div class="program-chip" role="listitem" data-level="70"><span>Adobe After Effects</span></div>
+            <div class="program-chip" role="listitem" data-level="75"><span>Adobe Premiere Pro</span></div>
+            <div class="program-chip" role="listitem" data-level="70"><span>Figma</span></div>
+            <div class="program-chip" role="listitem" data-level="60"><span>Procreate</span></div>
+            <div class="program-chip" role="listitem" data-level="65"><span>Cinema 4D</span></div>
+            <div class="program-chip" role="listitem" data-level="50"><span>Visual Studio Code</span></div>
+          </div>
+        </div>
+      </section>
 
-      <div class="program-chip" role="listitem" data-level="90">
-        <span>Adobe Illustrator</span>
-      </div>
-
-      <div class="program-chip" role="listitem" data-level="85">
-        <span>Adobe InDesign</span>
-      </div>
-
-      <div class="program-chip" role="listitem" data-level="70">
-        <span>Adobe After Effects</span>
-      </div>
-
-      <div class="program-chip" role="listitem" data-level="75">
-        <span>Adobe Premiere Pro</span>
-      </div>
-
-      <div class="program-chip" role="listitem" data-level="70">
-        <span>Figma</span>
-      </div>
-
-      <div class="program-chip" role="listitem" data-level="60">
-        <span>Procreate</span>
-      </div>
-
-      <div class="program-chip" role="listitem" data-level="65">
-        <span>Cinema 4D</span>
-      </div>
-
-      <div class="program-chip" role="listitem" data-level="50">
-        <span>Visual Studio Code</span>
-      </div>
-    </div>
-  </div>
-</section>
-  
       <!-- CONTACT -->
-<section class="section contact" id="contact">
-  <div class="container contact-inner">
-    <h2 class="works-title">Contact me</h2>
+      <section class="section contact" id="contact" aria-label="Contact section">
+        <div class="container contact-inner">
+          <h2 class="works-title">Contact me</h2>
 
-    <p class="contact-intro muted">
-      If you’d like to collaborate, request a quote, or simply say hello, send me a message.
-    </p>
+          <p class="contact-intro muted">
+            If you’d like to collaborate, request a quote, or simply say hello, send me a message.
+          </p>
 
-    <div class="contact-grid">
-      <!-- Left: info cards -->
-      <div class="contact-cards" aria-label="Contact details">
-        <a class="contact-card" href="mailto:hello@aurorastudio.com">
-          <span class="contact-label">Email</span>
-          <span class="contact-value">hello@aurorastudio.com</span>
-        </a>
+          <div class="contact-grid">
+            <!-- Left: info cards -->
+            <div class="contact-cards" aria-label="Contact details">
+              <a class="contact-card" href="mailto:hello@aurorastudio.com">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">hello@aurorastudio.com</span>
+              </a>
 
-        <div class="contact-card">
-          <span class="contact-label">Based in</span>
-          <span class="contact-value">Madrid · Available for freelance</span>
+              <div class="contact-card">
+                <span class="contact-label">Based in</span>
+                <span class="contact-value">Madrid · Available for freelance</span>
+              </div>
+
+              <div class="contact-card">
+                <span class="contact-label">Social</span>
+                <span class="contact-value">
+                  <a href="#" class="contact-link">Instagram</a>
+                  <span class="contact-dot">·</span>
+                  <a href="#" class="contact-link">Behance</a>
+                  <span class="contact-dot">·</span>
+                  <a href="#" class="contact-link">LinkedIn</a>
+                </span>
+              </div>
+            </div>
+
+            <!-- Right: form -->
+            <form class="form contact-form" action="#" method="post" aria-label="Contact form">
+              <label>
+                Name
+                <input type="text" name="name" placeholder="Your name" required aria-label="Your name" />
+              </label>
+
+              <label>
+                Email
+                <input type="email" name="email" placeholder="you@email.com" required aria-label="Your email address" />
+              </label>
+
+              <label>
+                Message
+                <textarea name="message" rows="5" placeholder="Write your message..." required aria-label="Your message"></textarea>
+              </label>
+
+              <button class="submit-btn" type="submit" aria-label="Send contact form">Send</button>
+
+              <p class="form-note muted">
+                *El formulario es visual (puedes conectarlo más adelante si quieres).
+              </p>
+            </form>
+          </div>
         </div>
+      </section>
 
-        <div class="contact-card">
-          <span class="contact-label">Social</span>
-          <span class="contact-value">
-            <a href="#" class="contact-link">Instagram</a>
-            <span class="contact-dot">·</span>
-            <a href="#" class="contact-link">Behance</a>
-            <span class="contact-dot">·</span>
-            <a href="#" class="contact-link">LinkedIn</a>
-          </span>
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container footer-inner">
+          <p class="muted">© <span id="year"></span> AuroraStudio. All rights reserved.</p>
+
+          <div class="social">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Behance">Behance</a>
+            <a href="#" aria-label="LinkedIn">LinkedIn</a>
+          </div>
         </div>
-      </div>
+      </footer>
 
-      <!-- Right: form -->
-      <form
-        class="form contact-form"
-        action="#"
-        method="post"
-        aria-label="Contact form"
-      >
-        <label>
-          Name
-          <input
-            type="text"
-            name="name"
-            placeholder="Your name"
-            required
-            aria-label="Your name"
-          />
-        </label>
-
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="you@email.com"
-            required
-            aria-label="Your email address"
-          />
-        </label>
-
-        <label>
-          Message
-          <textarea
-            name="message"
-            rows="5"
-            placeholder="Write your message..."
-            required
-            aria-label="Your message"
-          ></textarea>
-        </label>
-
-        <button
-          class="submit-btn"
-          type="submit"
-          aria-label="Send contact form"
-        >
-          Send
-        </button>
-
-        <p class="form-note muted">
-          *El formulario es visual (puedes conectarlo más adelante si quieres).
-        </p>
-      </form>
-    </div>
-  </div>
-</section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container footer-inner">
-        <p class="muted">© <span id="year"></span> AuroraStudio. All rights reserved.</p>
-
-        <div class="social">
-          <a href="#" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="Behance">Behance</a>
-          <a href="#" aria-label="LinkedIn">LinkedIn</a>
-        </div>
-      </div>
-    </footer>
-  <button class="back-to-top" id="backToTop" aria-label="Back to top">
-  ↑
-  </button>
-
+      <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+    </main>
   </body>
 </html>
 

@@ -1,13 +1,16 @@
 /* =========================================================
-   GLOBAL WRAPPER
+   MAIN
 ========================================================= */
 (() => {
+  const qs = (sel, root = document) => root.querySelector(sel);
+  const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
+
   /* =========================================================
      NAV – Mobile hamburger
   ========================================================= */
-  const header = document.querySelector(".site-header");
-  const navToggle = document.getElementById("navToggle");
-  const navLinks = document.getElementById("navLinks");
+  const header = qs(".site-header");
+  const navToggle = qs("#navToggle");
+  const navLinks = qs("#navLinks");
 
   const closeNav = () => {
     header?.classList.remove("is-open");
@@ -19,32 +22,23 @@
     navToggle.setAttribute("aria-expanded", String(isOpen));
   });
 
-  // Cierra al clicar un link del menú (móvil)
   navLinks?.addEventListener("click", (e) => {
     if (e.target.closest("a")) closeNav();
   });
 
-    // Cierra con Escape
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeNav();
-  });
-
-  // (Opcional) Cierra si clicas fuera del menú / botón
   document.addEventListener("click", (e) => {
     if (!header?.classList.contains("is-open")) return;
 
     const clickedToggle = e.target.closest("#navToggle");
     const clickedMenu = e.target.closest("#navLinks");
-
     if (!clickedToggle && !clickedMenu) closeNav();
   });
-
 
   /* =========================================================
      HERO – Discover button + show hero on scroll top
   ========================================================= */
-  const discoverBtn = document.getElementById("discoverBtn");
-  const worksSection = document.getElementById("works");
+  const discoverBtn = qs("#discoverBtn");
+  const worksSection = qs("#works");
 
   const showWorks = () => {
     document.body.classList.add("show-works");
@@ -52,9 +46,7 @@
   };
 
   const showHeroIfTop = () => {
-    if (window.scrollY <= 10) {
-      document.body.classList.remove("show-works");
-    }
+    if (window.scrollY <= 10) document.body.classList.remove("show-works");
   };
 
   discoverBtn?.addEventListener("click", showWorks);
@@ -64,41 +56,34 @@
   /* =========================================================
      CONTACT FORM – Prevent real submit (visual form)
   ========================================================= */
-  const contactForm = document.querySelector(".contact-form");
+  const contactForm = qs(".contact-form");
 
   contactForm?.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Si falta algo required, el navegador lo mostrará
     if (!contactForm.checkValidity()) {
       contactForm.reportValidity();
       return;
     }
 
-    // Si todo ok (form visual), puedes mostrar un mensaje simple
     alert("Thanks! Your message is ready to be sent (visual form).");
-
-    // Opcional: limpiar campos
     contactForm.reset();
   });
 
   /* =========================================================
      FOOTER – Current year
   ========================================================= */
-  const yearEl = document.getElementById("year");
+  const yearEl = qs("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* =========================================================
      BACK TO TOP
   ========================================================= */
-  const backToTop = document.getElementById("backToTop");
+  const backToTop = qs("#backToTop");
 
   const toggleBackToTop = () => {
-    if (window.scrollY > 500) {
-      backToTop?.classList.add("is-visible");
-    } else {
-      backToTop?.classList.remove("is-visible");
-    }
+    if (!backToTop) return;
+    backToTop.classList.toggle("is-visible", window.scrollY > 500);
   };
 
   backToTop?.addEventListener("click", () => {
@@ -106,13 +91,16 @@
   });
 
   window.addEventListener("scroll", toggleBackToTop, { passive: true });
+  toggleBackToTop();
 
-  
   /* =========================================================
      WORKS CAROUSEL – Infinite autoplay track
   ========================================================= */
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   window.addEventListener("load", () => {
-    const track = document.getElementById("worksTrack");
+    const track = qs("#worksTrack");
     if (!track) return;
 
     if (track.dataset.looped !== "true") {
@@ -123,9 +111,6 @@
     let position = 0;
     let lastTime = null;
     const SPEED = 60;
-
-    const prefersReducedMotion = () =>
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const getHalfWidth = () => track.scrollWidth / 2;
 
@@ -147,25 +132,23 @@
     requestAnimationFrame(animate);
   });
 
-
   /* =========================================================
      PROJECT MODAL – Elements & State
   ========================================================= */
-  const modal = document.getElementById("projectModal");
-  const projImage = document.getElementById("projImage");
-  const projTitle = document.getElementById("projTitle");
-  const projDesc = document.getElementById("projDesc");
-  const imgCounter = document.getElementById("imgCounter");
+  const modal = qs("#projectModal");
+  const projImage = qs("#projImage");
+  const projTitle = qs("#projTitle");
+  const projDesc = qs("#projDesc");
+  const imgCounter = qs("#imgCounter");
 
-  const btnClose = document.getElementById("projClose");
-  const btnPrevProj = document.getElementById("projPrev");
-  const btnNextProj = document.getElementById("projNext");
-  const btnPrevImg = document.getElementById("imgPrev");
-  const btnNextImg = document.getElementById("imgNext");
+  const btnClose = qs("#projClose");
+  const btnPrevProj = qs("#projPrev");
+  const btnNextProj = qs("#projNext");
+  const btnPrevImg = qs("#imgPrev");
+  const btnNextImg = qs("#imgNext");
 
   let currentProject = 0;
   let currentImage = 0;
-
 
   /* =========================================================
      PROJECT DATA
@@ -263,7 +246,6 @@
     },
   ];
 
-
   /* =========================================================
      PROJECT MODAL – Logic
   ========================================================= */
@@ -271,10 +253,15 @@
     const project = projects[currentProject];
     if (!project) return;
 
-    projTitle.textContent = project.title;
-    projDesc.textContent = project.desc;
-    projImage.src = project.images[currentImage];
-    imgCounter.textContent = `${currentImage + 1} / ${project.images.length}`;
+    if (projTitle) projTitle.textContent = project.title;
+    if (projDesc) projDesc.textContent = project.desc;
+
+    if (projImage) {
+      projImage.src = project.images[currentImage];
+      projImage.alt = `${project.title} – image ${currentImage + 1}`;
+    }
+
+    if (imgCounter) imgCounter.textContent = `${currentImage + 1} / ${project.images.length}`;
   };
 
   const openModal = (index) => {
@@ -282,14 +269,14 @@
     currentImage = 0;
     renderProject();
 
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
+    modal?.classList.add("is-open");
+    modal?.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
+    modal?.classList.remove("is-open");
+    modal?.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
   };
 
@@ -317,10 +304,7 @@
     renderProject();
   };
 
-
-  /* =========================================================
-     PROJECT MODAL – Events
-  ========================================================= */
+  /* Open modal from work cards (event delegation) */
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".work-card");
     if (!card) return;
@@ -332,6 +316,7 @@
   });
 
   btnClose?.addEventListener("click", closeModal);
+
   modal?.addEventListener("click", (e) => {
     if (e.target.closest("[data-close='true']")) closeModal();
   });
@@ -341,7 +326,35 @@
   btnPrevImg?.addEventListener("click", prevImage);
   btnNextImg?.addEventListener("click", nextImage);
 
+  /* =========================================================
+     ABOUT – Mobile toggle
+  ========================================================= */
+  const aboutBtn = qs("#aboutBtn");
+  const aboutText = qs("#aboutText");
+
+  aboutBtn?.addEventListener("click", () => {
+    if (!aboutText) return;
+    const isOpen = aboutText.classList.toggle("is-open");
+    aboutBtn.setAttribute("aria-expanded", String(isOpen));
+    aboutBtn.textContent = isOpen ? "Close" : "Meet me";
+  });
+
+  /* =========================================================
+     PROGRAMS – Skill level chips
+  ========================================================= */
+  qsa(".program-chip").forEach((chip) => {
+    const level = Number(chip.dataset.level || 0);
+    chip.style.setProperty("--level", String(Math.max(0, Math.min(100, level))));
+  });
+
+  /* =========================================================
+     GLOBAL – Keyboard
+  ========================================================= */
   window.addEventListener("keydown", (e) => {
+    // Escape always closes nav
+    if (e.key === "Escape") closeNav();
+
+    // Modal shortcuts only if open
     if (!modal?.classList.contains("is-open")) return;
 
     if (e.key === "Escape") closeModal();
@@ -350,33 +363,8 @@
     if (e.key === "ArrowUp") prevImage();
     if (e.key === "ArrowDown") nextImage();
   });
-
-
-  /* =========================================================
-     ABOUT – Mobile toggle
-  ========================================================= */
-  const aboutBtn = document.querySelector(".about-btn");
-  const aboutText = document.querySelector(".about-text");
-
-  aboutBtn?.addEventListener("click", () => {
-    const isOpen = aboutText.classList.toggle("is-open");
-    aboutBtn.setAttribute("aria-expanded", String(isOpen));
-    aboutBtn.textContent = isOpen ? "Close" : "Meet me";
-  });
-
 })();
 
-
-/* =========================================================
-   PROGRAMS – Skill level chips
-========================================================= */
-document.querySelectorAll(".program-chip").forEach((chip) => {
-  const level = Number(chip.dataset.level || 0);
-  chip.style.setProperty(
-    "--level",
-    Math.max(0, Math.min(100, level))
-  );
-});
 
 
 

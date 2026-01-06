@@ -2,8 +2,8 @@
    VARIABLES
 ===================================================== */
 :root{
-  --font-title: 'Playfair Display', serif;
-  --font-body: 'Montserrat', system-ui, sans-serif;
+  --font-title: "Playfair Display", serif;
+  --font-body: "Montserrat", system-ui, sans-serif;
 
   --accent: #b48cff;
   --lilac: #c9b6ff;
@@ -13,16 +13,19 @@
   --hero-bg: #f1f1f1;
 
   --border: rgba(0,0,0,0.08);
+
+  /* layout */
+  --scroll-pad: 110px;
 }
 
 /* =====================================================
    BASE
 ===================================================== */
 *{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
 
-:root{
-  scroll-padding-top: 110px;
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--scroll-pad);
 }
 
 body{
@@ -39,6 +42,32 @@ body{
 }
 
 .muted{ opacity: 0.7; }
+
+/* Skip link */
+.skip-link{
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  padding: 0.6rem 0.8rem;
+  border: 2px solid #111;
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 160ms ease;
+  z-index: 99999;
+}
+.skip-link:focus{
+  transform: translateY(0);
+}
+
+/* Focus visible */
+:focus-visible{
+  outline: 2px solid #111;
+  outline-offset: 3px;
+  border-radius: 10px;
+}
 
 /* =====================================================
    NAVIGATION
@@ -83,15 +112,13 @@ body{
   font-size: 0.95rem;
 }
 
-.nav-link:hover{
-  color: #c9a7ff;
-}
+.nav-link:hover{ color: #c9a7ff; }
 
 /* =========================
    HAMBURGER BUTTON
 ========================= */
 .nav-toggle{
-  display: none;              /* oculto en desktop */
+  display: none;
   background: none;
   border: none;
   padding: 0;
@@ -111,10 +138,11 @@ body{
   height: 2px;
   background: #111;
   border-radius: 999px;
+  transition: transform 180ms ease, opacity 180ms ease;
 }
 
 /* =========================
-   HAMBURGER → X (solo al abrir)
+   HAMBURGER → X
 ========================= */
 .site-header.is-open .nav-toggle-line:nth-child(1){
   transform: translateY(8px) rotate(45deg);
@@ -126,7 +154,6 @@ body{
   transform: translateY(-8px) rotate(-45deg);
 }
 
-
 /* =========================
    MOBILE NAV
 ========================= */
@@ -137,12 +164,8 @@ body{
     position: relative;
   }
 
-  /* mostrar hamburguesa */
-  .nav-toggle{
-    display: inline-flex;
-  }
+  .nav-toggle{ display: inline-flex; }
 
-  /* panel del menú (cerrado) */
   .nav-links{
     display: none;
     position: absolute;
@@ -163,12 +186,8 @@ body{
     box-shadow: 0 18px 45px rgba(0,0,0,0.12);
   }
 
-  /* panel abierto */
-  .site-header.is-open .nav-links{
-    display: flex;
-  }
+  .site-header.is-open .nav-links{ display: flex; }
 
-  /* casillas */
   .nav-links li{ list-style: none; }
 
   .nav-links .nav-link{
@@ -202,17 +221,9 @@ body{
   place-items: center;
   padding: 3rem 1.5rem;
   background:
-  radial-gradient(
-    1200px 600px at 10% 10%,
-    rgba(201,182,255,0.35),
-    transparent 60%
-  ),
-  radial-gradient(
-    1000px 500px at 90% 20%,
-    rgba(180,220,255,0.35),
-    transparent 60%
-  ),
-  var(--hero-bg);
+    radial-gradient(1200px 600px at 10% 10%, rgba(201,182,255,0.35), transparent 60%),
+    radial-gradient(1000px 500px at 90% 20%, rgba(180,220,255,0.35), transparent 60%),
+    var(--hero-bg);
   overflow: hidden;
   transition: transform 900ms ease, opacity 900ms ease;
 }
@@ -309,6 +320,8 @@ body.show-works #works{
 
 /* Accesibilidad */
 @media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+
   .hero,
   .hero-content,
   #works{
@@ -327,7 +340,7 @@ body.show-works #works{
   inset: -60px -60px auto -60px;
   height: 460px;
   pointer-events: none;
-  z-index: 6; /* ⬅️ ANTES era 1 */
+  z-index: 6;
 }
 
 .hero .sticker{
@@ -408,7 +421,7 @@ body.show-works #works{
   top: 130px;
   right: 295px;
   padding: 0.45rem 0.75rem;
-  z-index: 7; /* ⬅️ por encima de todo */
+  z-index: 7;
 }
 
 /* Dots hero */
@@ -478,6 +491,26 @@ body.show-works #works{
 }
 
 /* =====================================================
+   SECTIONS (GENERIC) + TITLES
+===================================================== */
+.section{
+  padding: 3.2rem 0 4rem;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: var(--scroll-pad);
+}
+
+.section h2,
+.works-title{
+  margin: 0 0 1.6rem 0;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(4rem, 10vw, 6.8rem);
+  letter-spacing: -0.045em;
+  text-align: center;
+  line-height: 0.95;
+}
+
+/* =====================================================
    WORKS
 ===================================================== */
 .works-section{ padding: 3rem 0 2rem; }
@@ -487,7 +520,6 @@ body.show-works #works{
   padding-top: 1rem;
 }
 
-/* Carrusel */
 .works-carousel{
   width: 100%;
   overflow: hidden;
@@ -525,26 +557,6 @@ body.show-works #works{
 }
 
 /* =====================================================
-   SECTIONS (GENERIC) + TITLES
-===================================================== */
-.section{
-  padding: 3.2rem 0 4rem;
-  border-top: 1px solid var(--border);
-  scroll-margin-top: 110px; /* extra por si acaso */
-}
-
-.section h2,
-.works-title{
-  margin: 0 0 1.6rem 0;
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: clamp(4rem, 10vw, 6.8rem);
-  letter-spacing: -0.045em;
-  text-align: center;
-  line-height: 0.95;
-}
-
-/* =====================================================
    PROJECT MODAL
 ===================================================== */
 .project-modal{
@@ -576,7 +588,6 @@ body.show-works #works{
   box-shadow: 0 30px 80px rgba(0,0,0,0.25);
 }
 
-/* Grid inside */
 .project-grid{
   height: 100%;
   display: grid;
@@ -812,7 +823,7 @@ body.show-works #works{
   box-shadow: 0 18px 45px rgba(0,0,0,0.18);
 }
 
-/* Stickers About (no se pisan con Hero) */
+/* Stickers About */
 .about .sticker{
   position: absolute;
   pointer-events: none;
@@ -850,7 +861,7 @@ body.show-works #works{
 .about .name-sticker{
   position: absolute;
   z-index: 6;
-  top: 28%;
+  top: 12%;
   left: 38%;
   transform: translate(-50%, -50%) rotate(-10deg);
 
@@ -877,8 +888,8 @@ body.show-works #works{
 }
 
 .about .doodle--1{
-  top: 2%;
-  right: -24%;
+  top: 18%;
+  right: -25%;
   transform: rotate(12deg);
 }
 
@@ -902,11 +913,11 @@ body.show-works #works{
   padding-left: 0.9rem;
 }
 
-/* Desktop: texto visible, botón oculto */
+/* Desktop */
 .about-mobile-toggle{ display: none; }
 .about-text-inner{ display: block; }
 
-/* Mobile: foto + botón, texto plegable */
+/* Mobile */
 @media (max-width: 860px){
   .about{ padding: 3rem 0 2rem; }
 
@@ -927,15 +938,12 @@ body.show-works #works{
     place-items: center;
   }
 
-  /* En móvil quitamos adornos */
   .about .sticker,
   .about .doodle{
     display: none !important;
   }
 
-  .about .name-sticker{
-    display: block;
-  }
+  .about .name-sticker{ display: block; }
 
   .about-photo{
     width: min(300px, 70vw);
@@ -982,9 +990,7 @@ body.show-works #works{
     animation: aboutReveal 260ms ease both;
   }
 
-  .about-text.is-open .about-text-inner{
-    display: block;
-  }
+  .about-text.is-open .about-text-inner{ display: block; }
 
   @keyframes aboutReveal{
     from{ opacity: 0; transform: translateY(-6px); }
@@ -995,15 +1001,10 @@ body.show-works #works{
 /* =====================================================
    PROGRAMS / SKILLS GRID
 ===================================================== */
-.programs{
-  border-top: 1px solid var(--border);
-}
+.programs{ border-top: 1px solid var(--border); }
 
-.programs .works-title{
-  margin-bottom: 4rem;
-}
+.programs .works-title{ margin-bottom: 4rem; }
 
-/* GRID real */
 .programs-grid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1012,17 +1013,12 @@ body.show-works #works{
   margin: 0 auto;
 }
 
-/* Responsive */
 @media (max-width: 860px){
-  .programs-grid{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .programs-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 520px){
-  .programs-grid{
-    grid-template-columns: 1fr;
-  }
+  .programs-grid{ grid-template-columns: 1fr; }
 }
 
 .program-chip{
@@ -1031,8 +1027,8 @@ body.show-works #works{
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center; /* ✅ centrado en la celda */
-  width: 100%;            /* ✅ ocupa toda la columna */
+  justify-content: center;
+  width: 100%;
   text-align: center;
 
   padding: 0.8rem 1rem;
@@ -1069,7 +1065,6 @@ body.show-works #works{
   z-index: 1;
 }
 
-/* Ajustes móvil */
 @media (max-width: 600px){
   .program-chip{
     font-size: 0.8rem;
@@ -1112,9 +1107,6 @@ input, textarea{
 
 .submit-btn:hover{ opacity: 0.92; }
 
-/* =====================================================
-   CONTACT (POLISH)
-===================================================== */
 .contact-inner{
   display: grid;
   gap: 1.2rem;
@@ -1169,25 +1161,17 @@ input, textarea{
   border-bottom: 1px solid rgba(0,0,0,0.25);
 }
 
-.contact-link:hover{
-  border-bottom-color: rgba(0,0,0,0.65);
-}
+.contact-link:hover{ border-bottom-color: rgba(0,0,0,0.65); }
 
 .contact-dot{
   opacity: 0.55;
   padding: 0 0.35rem;
 }
 
-/* que el form respire dentro del layout */
-.contact-form{
-  max-width: none;
-}
+.contact-form{ max-width: none; }
 
-/* Mobile */
 @media (max-width: 860px){
-  .contact-grid{
-    grid-template-columns: 1fr;
-  }
+  .contact-grid{ grid-template-columns: 1fr; }
 
   .contact-intro{
     text-align: left;
@@ -1224,9 +1208,9 @@ input, textarea{
 
 .social a:hover{ opacity: 1; }
 
-/* =========================
-   BACK TO TOP BUTTON
-========================= */
+/* =====================================================
+   BACK TO TOP
+===================================================== */
 .back-to-top{
   position: fixed;
   right: 1.2rem;
@@ -1257,7 +1241,6 @@ input, textarea{
   z-index: 999;
 }
 
-/* visible */
 .back-to-top.is-visible{
   opacity: 1;
   pointer-events: auto;
@@ -1269,7 +1252,6 @@ input, textarea{
   color: #fff;
 }
 
-/* móvil: un poco más arriba */
 @media (max-width: 600px){
   .back-to-top{
     right: 1rem;
