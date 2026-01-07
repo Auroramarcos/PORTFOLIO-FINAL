@@ -3,16 +3,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>404 — Page not found</title>
+    <title>404 – Page not found</title>
+
+    <!-- Fonts (same as index) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Montserrat:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Main styles -->
     <link rel="stylesheet" href="css/styles.css" />
   </head>
 
   <body class="page-404">
-    <main class="section hero" style="min-height: 100vh;">
-      <div class="hero-inner" style="margin-inline: auto;">
-        <div class="hero-content" style="transform: none;">
+    <main class="section hero" aria-label="404 page">
+      <div class="hero-inner">
+        <div class="hero-content">
 
-          <!-- Decorative stickers (same style as homepage) -->
+          <!-- STICKERS (same structure as index.html) -->
           <div class="stickers" aria-hidden="true">
             <div class="sticker sticker--sun">404</div>
 
@@ -21,40 +31,37 @@
               <span>NOT FOUND</span>
             </div>
 
-            <div class="sticker sticker--oval">TRY AGAIN</div>
-            <div class="sticker sticker--bubble">HOME</div>
+            <div class="sticker sticker--oval">ERROR</div>
+            <div class="sticker sticker--bubble">OOPS</div>
 
             <div class="doodles" aria-hidden="true">
               <img class="doodle doodle--1" src="assets/svg/svg_01.svg" alt="" />
               <img class="doodle doodle--2" src="assets/svg/svg_02.svg" alt="" />
             </div>
 
-            <div class="sticker sticker--tag">ERROR</div>
-
+            <div class="sticker sticker--tag">404</div>
             <div class="sticker sticker--dot"></div>
             <div class="sticker sticker--dot-2"></div>
             <div class="sticker sticker--dot-3"></div>
           </div>
 
-          <div class="container" style="text-align:center; position:relative; z-index:10; margin-top:-40px;">
-            <h1 class="works-title" style="margin-bottom: 0.6rem;">404</h1>
+          <!-- 404 CONTENT -->
+          <h1 class="hero-title">
+            <span class="hero-line">404</span>
+          </h1>
 
-            <p class="muted" style="margin: 0 0 1.6rem;">
-              The page you’re looking for doesn’t exist.
-            </p>
+          <p class="muted" style="max-width: 40ch; margin: 0 auto 2rem;">
+            The page you’re looking for doesn’t exist.
+          </p>
 
-            <a
-              href="/PORTFOLIO-FINAL/"
-              class="hero-btn"
-              style="display:inline-block; text-decoration:none;"
-            >
-              Go back home
-            </a>
-          </div>
+          <a href="/PORTFOLIO-FINAL/" class="hero-btn">
+            Go back home
+          </a>
 
         </div>
       </div>
     </main>
   </body>
 </html>
+
 
