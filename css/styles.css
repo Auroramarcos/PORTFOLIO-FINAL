@@ -1,10 +1,24 @@
 /* =====================================================
-   VARIABLES
+  PORTFOLIO TEMPLATE — styles.css
+  - Edit branding in :root (colors + fonts).
+  - Sections are grouped to match the HTML structure.
+  - JS-controlled states:
+    * body.show-works (hero → works transition)
+    * .site-header.is-open (mobile nav)
+    * .project-modal.is-open (modal open)
+    * .about-text.is-open (mobile about toggle)
+    * .back-to-top.is-visible (scroll button)
+===================================================== */
+
+/* =====================================================
+   1) DESIGN TOKENS (EDIT HERE)
+   - Fonts, colors, borders, spacing
 ===================================================== */
 :root{
   --font-title: "Playfair Display", serif;
   --font-body: "Montserrat", system-ui, sans-serif;
 
+  /* Brand colors (edit to match your identity) */
   --accent: #b48cff;
   --lilac: #c9b6ff;
 
@@ -14,12 +28,13 @@
 
   --border: rgba(0,0,0,0.08);
 
-  /* layout */
-  --scroll-pad: 110px;
+  /* Layout */
+  --scroll-pad: 110px; /* used for sticky header offset (anchors) */
 }
 
 /* =====================================================
-   BASE
+   2) BASE
+   - Reset + global typography
 ===================================================== */
 *{ box-sizing: border-box; }
 
@@ -43,7 +58,11 @@ body{
 
 .muted{ opacity: 0.7; }
 
-/* Skip link */
+/* =====================================================
+   3) ACCESSIBILITY
+   - Skip link + focus styles
+===================================================== */
+/* Skip link (keyboard users) */
 .skip-link{
   position: absolute;
   left: 12px;
@@ -62,7 +81,7 @@ body{
   transform: translateY(0);
 }
 
-/* Focus visible */
+/* Focus visible (keep it clearly visible) */
 :focus-visible{
   outline: 2px solid #111;
   outline-offset: 3px;
@@ -70,7 +89,8 @@ body{
 }
 
 /* =====================================================
-   NAVIGATION
+   4) HEADER / NAVIGATION
+   - Desktop nav + mobile dropdown (JS toggles .site-header.is-open)
 ===================================================== */
 .site-header{
   position: sticky;
@@ -95,7 +115,7 @@ body{
   letter-spacing: 0.02em;
 }
 
-/* Links desktop */
+/* Desktop links */
 .nav-links{
   list-style: none;
   display: flex;
@@ -115,7 +135,7 @@ body{
 .nav-link:hover{ color: #c9a7ff; }
 
 /* =========================
-   HAMBURGER BUTTON
+   HAMBURGER BUTTON (mobile)
 ========================= */
 .nav-toggle{
   display: none;
@@ -142,7 +162,7 @@ body{
 }
 
 /* =========================
-   HAMBURGER → X
+   HAMBURGER → X (when menu is open)
 ========================= */
 .site-header.is-open .nav-toggle-line:nth-child(1){
   transform: translateY(8px) rotate(45deg);
@@ -155,7 +175,7 @@ body{
 }
 
 /* =========================
-   MOBILE NAV
+   MOBILE NAV DROPDOWN
 ========================= */
 @media (max-width: 600px){
   .nav{
@@ -213,7 +233,9 @@ body{
 }
 
 /* =====================================================
-   HERO + TRANSICIÓN
+   5) HERO + TRANSITION TO WORKS (JS: body.show-works)
+   - Hero is full height.
+   - Works section animates in when "Discover" is clicked.
 ===================================================== */
 .hero{
   min-height: 100vh;
@@ -243,7 +265,7 @@ body{
   will-change: transform, filter, opacity;
   transition: transform 900ms ease, filter 900ms ease, opacity 900ms ease;
 
-  /* ajuste óptico del bloque */
+  /* Optical adjustment of the block */
   transform: translateX(-3.5%);
 }
 
@@ -292,7 +314,7 @@ body{
   transform: translateY(-2px);
 }
 
-/* Works: estado inicial + scroll margin */
+/* Works initial state (revealed when body.show-works is added) */
 #works{
   transform: translateY(140px);
   opacity: 0;
@@ -300,7 +322,7 @@ body{
   scroll-margin-top: 160px;
 }
 
-/* Estado “mostrar works” */
+/* State: show works (JS adds class to body) */
 body.show-works .hero{
   transform: translateY(-160px);
   opacity: 0;
@@ -318,7 +340,7 @@ body.show-works #works{
   opacity: 1;
 }
 
-/* Accesibilidad */
+/* Reduced motion: disable transitions/animations */
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
 
@@ -333,7 +355,8 @@ body.show-works #works{
 }
 
 /* =====================================================
-   HERO STICKERS (SCOPED)
+   6) HERO DECORATIONS (optional)
+   - Stickers/doodles are purely decorative.
 ===================================================== */
 .hero .stickers{
   position: absolute;
@@ -365,7 +388,7 @@ body.show-works #works{
   transform: rotate(var(--rot, 0deg));
 }
 
-/* Formas hero */
+/* Sticker variations */
 .hero .sticker--sun{
   --rot: -6deg;
   background: #ffe66b;
@@ -424,7 +447,7 @@ body.show-works #works{
   z-index: 7;
 }
 
-/* Dots hero */
+/* Dots */
 .hero .sticker--dot,
 .hero .sticker--dot-2,
 .hero .sticker--dot-3{
@@ -441,7 +464,7 @@ body.show-works #works{
 .hero .sticker--dot-2{ background:#ffe66b; left:35%; top:32%; }
 .hero .sticker--dot-3{ background:#78d6ff; left:80%; top:25%; }
 
-/* Doodles hero */
+/* Doodles */
 .hero .doodles{
   position: absolute;
   inset: 0;
@@ -459,7 +482,7 @@ body.show-works #works{
 .hero .doodle--1{ left: 30px; top: 130px; transform: rotate(-2deg); }
 .hero .doodle--2{ right: -240px; top: -60px; transform: rotate(70deg); }
 
-/* Pop anim */
+/* Pop animation */
 @keyframes stickerPop{
   0%{ transform: scale(0.6) rotate(var(--rot, 0deg)); opacity:0; filter: blur(2px); }
   70%{ transform: scale(1.08) rotate(var(--rot, 0deg)); opacity:1; filter: blur(0); }
@@ -484,14 +507,14 @@ body.show-works #works{
   .hero .sticker, .hero .doodle{ animation: none !important; }
 }
 
-/* Hero stickers off en móvil */
+/* Hide decorations on smaller screens */
 @media (max-width: 900px){
   .hero .stickers,
   .hero .doodles{ display: none; }
 }
 
 /* =====================================================
-   SECTIONS (GENERIC) + TITLES
+   7) SECTIONS (generic) + TITLES
 ===================================================== */
 .section{
   padding: 3.2rem 0 4rem;
@@ -511,7 +534,7 @@ body.show-works #works{
 }
 
 /* =====================================================
-   WORKS
+   8) WORKS (carousel)
 ===================================================== */
 .works-section{ padding: 3rem 0 2rem; }
 
@@ -557,7 +580,8 @@ body.show-works #works{
 }
 
 /* =====================================================
-   PROJECT MODAL
+   9) PROJECT MODAL (dialog)
+   - .project-modal.is-open is toggled by JS
 ===================================================== */
 .project-modal{
   position: fixed;
@@ -584,7 +608,7 @@ body.show-works #works{
   background: #f6f6f6;
   border: 2px solid #111;
   border-radius: 18px;
-  overflow: visible; /* flechas fuera */
+  overflow: visible; /* arrows outside */
   box-shadow: 0 30px 80px rgba(0,0,0,0.25);
 }
 
@@ -610,7 +634,7 @@ body.show-works #works{
   display: block;
 }
 
-/* Arrows images */
+/* Image arrows (inside media) */
 .media-arrow{
   position: absolute;
   top: 50%;
@@ -654,7 +678,7 @@ body.show-works #works{
   color: #111;
 }
 
-/* Right */
+/* Right column */
 .project-info{
   padding: 2.2rem 2rem;
   background: #f6f6f6;
@@ -681,7 +705,7 @@ body.show-works #works{
   max-width: 36ch;
 }
 
-/* Close */
+/* Close button */
 .project-close{
   position: absolute;
   top: 16px;
@@ -706,7 +730,7 @@ body.show-works #works{
   transform: scale(1.05);
 }
 
-/* Project nav (prev/next) */
+/* Project navigation (prev/next) */
 .project-nav{
   position: absolute;
   top: 50%;
@@ -779,7 +803,7 @@ body.show-works #works{
 }
 
 /* =====================================================
-   ABOUT ME (SCOPED)
+   10) ABOUT (mobile toggle controlled by JS)
 ===================================================== */
 .about{ padding: 5.5rem 0; }
 
@@ -802,7 +826,7 @@ body.show-works #works{
   place-items: center;
 }
 
-/* Foto */
+/* Profile photo */
 .about-photo{
   position: relative;
   z-index: 3;
@@ -823,7 +847,7 @@ body.show-works #works{
   box-shadow: 0 18px 45px rgba(0,0,0,0.18);
 }
 
-/* Stickers About */
+/* Decorative elements (optional) */
 .about .sticker{
   position: absolute;
   pointer-events: none;
@@ -878,7 +902,7 @@ body.show-works #works{
   pointer-events: none;
 }
 
-/* Doodle About */
+/* Doodle */
 .about .doodle{
   position: absolute;
   pointer-events: none;
@@ -893,7 +917,7 @@ body.show-works #works{
   transform: rotate(12deg);
 }
 
-/* Texto About */
+/* About text */
 .about-text{
   max-width: 52ch;
   overflow-wrap: anywhere;
@@ -913,11 +937,11 @@ body.show-works #works{
   padding-left: 0.9rem;
 }
 
-/* Desktop */
+/* Desktop: text always visible */
 .about-mobile-toggle{ display: none; }
 .about-text-inner{ display: block; }
 
-/* Mobile */
+/* Mobile: button toggles .about-text.is-open */
 @media (max-width: 860px){
   .about{ padding: 3rem 0 2rem; }
 
@@ -999,7 +1023,8 @@ body.show-works #works{
 }
 
 /* =====================================================
-   PROGRAMS / SKILLS GRID
+   11) PROGRAMS / SKILLS GRID
+   - data-level (0–100) is used by JS to set --level
 ===================================================== */
 .programs{ border-top: 1px solid var(--border); }
 
@@ -1022,7 +1047,7 @@ body.show-works #works{
 }
 
 .program-chip{
-  --level: 0;
+  --level: 0; /* percentage (0–100). JS can update it from data-level */
 
   position: relative;
   display: inline-flex;
@@ -1073,7 +1098,7 @@ body.show-works #works{
 }
 
 /* =====================================================
-   CONTACT / FORM
+   12) CONTACT / FORM
 ===================================================== */
 .form{
   margin-top: 1.25rem;
@@ -1180,7 +1205,7 @@ input, textarea{
 }
 
 /* =====================================================
-   FOOTER
+   13) FOOTER
 ===================================================== */
 .footer{
   padding: 2rem 0;
@@ -1209,7 +1234,7 @@ input, textarea{
 .social a:hover{ opacity: 1; }
 
 /* =====================================================
-   BACK TO TOP
+   14) BACK TO TOP (JS toggles .is-visible)
 ===================================================== */
 .back-to-top{
   position: fixed;

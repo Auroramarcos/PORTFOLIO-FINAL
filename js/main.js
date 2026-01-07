@@ -1,12 +1,30 @@
 /* =========================================================
-   MAIN
+  PORTFOLIO TEMPLATE — main.js
+  - This file controls interactivity (menu, hero action, modal, UI helpers).
+  - Edit points:
+    1) PROJECT DATA: update the `projects[]` array (titles, descriptions, images)
+    2) CONTACT: replace the demo alert or connect the form to a backend
+    3) TEXTS: update labels ("Meet me", "Close", etc.)
+  - JS-controlled CSS states:
+    * .site-header.is-open     → mobile nav open
+    * body.show-works          → hero transitions to works
+    * .project-modal.is-open   → project modal open
+    * .about-text.is-open      → about text expanded on mobile
+    * .back-to-top.is-visible  → back-to-top button shown
 ========================================================= */
+
 (() => {
+  /* =========================================================
+    HELPERS
+    - qs  = querySelector
+    - qsa = querySelectorAll (as array)
+  ========================================================= */
   const qs = (sel, root = document) => root.querySelector(sel);
   const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
 
   /* =========================================================
-     NAV – Mobile hamburger
+     NAV – Mobile hamburger menu
+     - Requires: .site-header, #navToggle, #navLinks
   ========================================================= */
   const header = qs(".site-header");
   const navToggle = qs("#navToggle");
@@ -22,10 +40,12 @@
     navToggle.setAttribute("aria-expanded", String(isOpen));
   });
 
+  // Close menu after clicking any nav link (mobile)
   navLinks?.addEventListener("click", (e) => {
     if (e.target.closest("a")) closeNav();
   });
 
+  // Close menu if user clicks outside of header/nav area
   document.addEventListener("click", (e) => {
     if (!header?.classList.contains("is-open")) return;
 
@@ -35,7 +55,9 @@
   });
 
   /* =========================================================
-     HERO – Discover button + show hero on scroll top
+     HERO – "Discover" button behavior
+     - Adds body.show-works and scrolls to #works
+     - Also restores hero state when user scrolls back to top
   ========================================================= */
   const discoverBtn = qs("#discoverBtn");
   const worksSection = qs("#works");
@@ -54,7 +76,9 @@
   showHeroIfTop();
 
   /* =========================================================
-     CONTACT FORM – Prevent real submit (visual form)
+     CONTACT FORM (DEMO)
+     - Prevents real submit (UI-only form)
+     - Replace this block if you connect a real backend
   ========================================================= */
   const contactForm = qs(".contact-form");
 
@@ -72,12 +96,14 @@
 
   /* =========================================================
      FOOTER – Current year
+     - Fills #year automatically
   ========================================================= */
   const yearEl = qs("#year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* =========================================================
      BACK TO TOP
+     - Shows button after scroll threshold
   ========================================================= */
   const backToTop = qs("#backToTop");
 
@@ -95,6 +121,8 @@
 
   /* =========================================================
      WORKS CAROUSEL – Infinite autoplay track
+     - Duplicates track content once to create a seamless loop
+     - Respects prefers-reduced-motion
   ========================================================= */
   const prefersReducedMotion = () =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -103,6 +131,7 @@
     const track = qs("#worksTrack");
     if (!track) return;
 
+    // Duplicate slides once (only the first time)
     if (track.dataset.looped !== "true") {
       track.innerHTML += track.innerHTML;
       track.dataset.looped = "true";
@@ -110,7 +139,7 @@
 
     let position = 0;
     let lastTime = null;
-    const SPEED = 60;
+    const SPEED = 60; // px/second (edit if you want slower/faster)
 
     const getHalfWidth = () => track.scrollWidth / 2;
 
@@ -133,7 +162,9 @@
   });
 
   /* =========================================================
-     PROJECT MODAL – Elements & State
+     PROJECT MODAL – Elements & state
+     - Requires: #projectModal, #projTitle, #projDesc, #projImage, #imgCounter
+     - Controls: close, prev/next project, prev/next image
   ========================================================= */
   const modal = qs("#projectModal");
   const projImage = qs("#projImage");
@@ -151,7 +182,11 @@
   let currentImage = 0;
 
   /* =========================================================
-     PROJECT DATA
+     PROJECT DATA (EDIT HERE)
+     - Add/remove projects by editing this array
+     - IMPORTANT: your HTML .work-card data-project indexes must match this order
+     - Each project must include:
+       { title: string, desc: string, images: [img1, img2, ...] }
   ========================================================= */
   const projects = [
     {
@@ -247,7 +282,7 @@
   ];
 
   /* =========================================================
-     PROJECT MODAL – Logic
+     PROJECT MODAL – Rendering + controls
   ========================================================= */
   const renderProject = () => {
     const project = projects[currentProject];
@@ -304,7 +339,9 @@
     renderProject();
   };
 
-  /* Open modal from work cards (event delegation) */
+  /* Open modal from work cards (event delegation)
+     - Requires: .work-card elements with data-project="0..n"
+  */
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".work-card");
     if (!card) return;
@@ -317,6 +354,7 @@
 
   btnClose?.addEventListener("click", closeModal);
 
+  // Click on overlay closes modal
   modal?.addEventListener("click", (e) => {
     if (e.target.closest("[data-close='true']")) closeModal();
   });
@@ -328,6 +366,7 @@
 
   /* =========================================================
      ABOUT – Mobile toggle
+     - Toggles .about-text.is-open and updates aria-expanded
   ========================================================= */
   const aboutBtn = qs("#aboutBtn");
   const aboutText = qs("#aboutText");
@@ -341,6 +380,7 @@
 
   /* =========================================================
      PROGRAMS – Skill level chips
+     - Reads data-level (0–100) and sets CSS variable --level
   ========================================================= */
   qsa(".program-chip").forEach((chip) => {
     const level = Number(chip.dataset.level || 0);
@@ -348,7 +388,11 @@
   });
 
   /* =========================================================
-     GLOBAL – Keyboard
+     GLOBAL – Keyboard shortcuts
+     - ESC closes nav always
+     - If modal is open:
+       ArrowLeft/Right → prev/next project
+       ArrowUp/Down    → prev/next image
   ========================================================= */
   window.addEventListener("keydown", (e) => {
     // Escape always closes nav
@@ -364,6 +408,7 @@
     if (e.key === "ArrowDown") nextImage();
   });
 })();
+
 
 
 

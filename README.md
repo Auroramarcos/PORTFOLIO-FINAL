@@ -32,6 +32,11 @@ The content shown is fictional and has been used for academic purposes and for f
 Artificial intelligence was used as a support tool during the development process, mainly to resolve technical issues, improve code structure, and explore possible interaction and animation solutions.
 The final decisions regarding design, content organization, and visual adjustments were made manually.
 
+## Visual resources and copyright
+The images used in this project are for illustrative and academic purposes only.
+- Some of the images have been generated using artificial intelligence (Gemini) as visual support for fictional projects.
+- Other images have been obtained from the internet and are used solely for educational purposes, with no commercial or redistribution intent.
+This project is not for commercial purposes and is presented exclusively as an academic exercise.
 ## How to use this template
 This project can be used as a starting point for creating a personal portfolio, adapting its structure and content.
 1. Clone or download the repository.
