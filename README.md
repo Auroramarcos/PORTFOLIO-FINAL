@@ -37,6 +37,7 @@ The images used in this project are for illustrative and academic purposes only.
 - Some of the images have been generated using artificial intelligence (Gemini) as visual support for fictional projects.
 - Other images have been obtained from the internet and are used solely for educational purposes, with no commercial or redistribution intent.
 This project is not for commercial purposes and is presented exclusively as an academic exercise.
+
 ## How to use this template
 This project can be used as a starting point for creating a personal portfolio, adapting its structure and content.
 1. Clone or download the repository.
@@ -48,3 +49,6 @@ This project can be used as a starting point for creating a personal portfolio, 
 ## Project status
 Project completed as an academic exercise.
 The portfolio is ready to be expanded or adapted with personal content and real projects in the future.
+
+## 404 Page
+This project includes a custom 404 page for broken or non-existing routes when deployed on GitHub Pages.
