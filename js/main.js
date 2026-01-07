@@ -348,8 +348,10 @@
 
     const index = Number(card.dataset.project);
     if (!Number.isInteger(index)) return;
+    if (index < 0 || index >= projects.length) return;
 
-    openModal(index);
+  openModal(index);
+
   });
 
   btnClose?.addEventListener("click", closeModal);

@@ -18,7 +18,7 @@ The content shown is fictional and has been used for academic purposes and for f
 - Navbar with section navigation
 - Hero with main title and interactive button
 - Smooth scroll to the projects section
-- Sections for Works, About me, Skills
+- Sections for Works, About Me, Skills
 - Visual contact section
 - Responsive design adapted to different screen sizes
 
@@ -29,7 +29,7 @@ The content shown is fictional and has been used for academic purposes and for f
 - GitHub Pages
 
 ## Use of artificial intelligence
-Artificial intelligence was used as a support tool during the development process, mainly to resolve technical issues, improve code structure, and explore possible interaction and animation solutions.
+Artificial intelligence was used as a support tool during the development process, mainly to assist with technical problem-solving, code organization, and exploration of interaction and animation possibilities.
 The final decisions regarding design, content organization, and visual adjustments were made manually.
 
 ## Visual resources and copyright
@@ -52,3 +52,11 @@ The portfolio is ready to be expanded or adapted with personal content and real 
 
 ## 404 Page
 This project includes a custom 404 page for broken or non-existing routes when deployed on GitHub Pages.
+
+## License
+This project is licensed under the MIT License.
+
+
+---
+This project was developed as part of an academic course and reflects the skills acquired in web layout, responsive design, and front-end development.
+
