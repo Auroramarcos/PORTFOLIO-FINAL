@@ -1285,20 +1285,27 @@ input, textarea{
 }
 
 /* =====================================================
-   404 PAGE – Hero stickers layout fix (only for 404)
+   404 PAGE – Hero layout adjustments (404 only)
 ===================================================== */
-.page-404 .hero-content{
-  transform: none !important;          /* remove the -3.5% optical shift */
+
+/* Reset hero optical offset */
+.page-404 .hero-content {
+  transform: none !important; /* remove -3.5% optical shift */
   padding-top: 1rem;
 }
 
-.page-404 .hero-title{
+/* Title spacing */
+.page-404 .hero-title {
   margin-bottom: 0.75rem;
   max-width: none;
 }
 
-/* make stickers smaller + keep them away from the center */
-.page-404 .hero .stickers{
+/* =====================================================
+   Stickers container
+===================================================== */
+
+/* Make stickers smaller and keep them away from center */
+.page-404 .hero .stickers {
   inset: -80px -80px auto -80px;
   height: 520px;
   transform: scale(0.78);
@@ -1306,60 +1313,66 @@ input, textarea{
   opacity: 0.95;
 }
 
-/* reposition the stickers so they don't collide with "404" */
-.page-404 .hero .sticker--sun{
+/* Individual sticker positioning */
+.page-404 .hero .sticker--sun {
   top: 20px;
   left: 40px;
 }
 
-.page-404 .hero .sticker--star{
+.page-404 .hero .sticker--star {
   top: 16px;
   right: 60px;
 }
 
-.page-404 .hero .sticker--tag{
+.page-404 .hero .sticker--tag {
   top: 120px;
   right: 220px;
 }
 
-.page-404 .hero .sticker--oval{
+.page-404 .hero .sticker--oval {
   top: 300px;
   left: 70px;
 }
 
-.page-404 .hero .sticker--bubble{
+.page-404 .hero .sticker--bubble {
   top: 310px;
   right: 70px;
 }
 
-/* dots a bit farther */
-.page-404 .hero .sticker--dot{ left: 62%; top: 56%; }
-.page-404 .hero .sticker--dot-2{ left: 30%; top: 34%; }
-.page-404 .hero .sticker--dot-3{ left: 82%; top: 28%; }
-
-/* doodles slightly smaller */
-.page-404 .hero .doodle{
-  width: 300px;
-  opacity: 0.9;
-}
-.page-404 .hero .doodle--2{
-  right: -220px;
-  top: -40px;
+/* Decorative dots */
+.page-404 .hero .sticker--dot {
+  left: 62%;
+  top: 56%;
 }
 
-/* keep text above stickers just in case */
+.page-404 .hero .sticker--dot-2 {
+  left: 30%;
+  top: 34%;
+}
+
+.page-404 .hero .sticker--dot-3 {
+  left: 82%;
+  top: 28%;
+}
+
+/* =====================================================
+   Text layering
+===================================================== */
+
+/* Keep text above stickers */
 .page-404 .hero-title,
 .page-404 .muted,
-.page-404 .hero-btn{
+.page-404 .hero-btn {
   position: relative;
   z-index: 10;
 }
 
-/* 404 – remove hero doodles (the SVG lines) */
-.page-404 .hero .doodles{
+/* =====================================================
+   Remove doodles / SVG lines (404 only)
+===================================================== */
+
+/* Hide ONLY doodles (Safari-safe) */
+.page-404 .hero .doodles,
+.page-404 .hero [class*="doodle"] {
   display: none !important;
 }
-
-
-
-
