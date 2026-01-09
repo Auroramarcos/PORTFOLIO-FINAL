@@ -22,6 +22,9 @@
   const qs = (sel, root = document) => root.querySelector(sel);
   const qsa = (sel, root = document) => [...root.querySelectorAll(sel)];
 
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   /* =========================================================
      NAV – Mobile hamburger menu
      - Requires: .site-header, #navToggle, #navLinks
@@ -36,8 +39,8 @@
   };
 
   navToggle?.addEventListener("click", () => {
-    const isOpen = header.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+    const isOpen = header?.classList.toggle("is-open");
+    navToggle?.setAttribute("aria-expanded", String(Boolean(isOpen)));
   });
 
   // Close menu after clicking any nav link (mobile)
@@ -64,7 +67,11 @@
 
   const showWorks = () => {
     document.body.classList.add("show-works");
-    worksSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // leave time for hero animation before scrolling
+    setTimeout(() => {
+      worksSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 250);
   };
 
   const showHeroIfTop = () => {
@@ -99,7 +106,7 @@
      - Fills #year automatically
   ========================================================= */
   const yearEl = qs("#year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
   /* =========================================================
      BACK TO TOP
@@ -120,16 +127,22 @@
   toggleBackToTop();
 
   /* =========================================================
-     WORKS CAROUSEL – Infinite autoplay track
+     WORKS CAROUSEL – Infinite autoplay track (desktop only)
      - Duplicates track content once to create a seamless loop
      - Respects prefers-reduced-motion
+     - Mobile: no autoplay (native horizontal scroll via CSS)
   ========================================================= */
-  const prefersReducedMotion = () =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   window.addEventListener("load", () => {
     const track = qs("#worksTrack");
     if (!track) return;
+
+    const isMobile = window.matchMedia("(max-width: 600px)").matches;
+
+    // Mobile OR reduced motion: no autoplay
+    if (isMobile || prefersReducedMotion()) {
+      track.style.transform = "none";
+      return;
+    }
 
     // Duplicate slides once (only the first time)
     if (track.dataset.looped !== "true") {
@@ -139,7 +152,7 @@
 
     let position = 0;
     let lastTime = null;
-    const SPEED = 60; // px/second (edit if you want slower/faster)
+    const SPEED = 60; // px/second
 
     const getHalfWidth = () => track.scrollWidth / 2;
 
@@ -148,6 +161,7 @@
       const delta = (timestamp - lastTime) / 1000;
       lastTime = timestamp;
 
+      // (This will be false anyway because we return earlier, but keeps logic safe)
       if (!prefersReducedMotion()) {
         position += SPEED * delta;
         const half = getHalfWidth();
@@ -163,8 +177,6 @@
 
   /* =========================================================
      PROJECT MODAL – Elements & state
-     - Requires: #projectModal, #projTitle, #projDesc, #projImage, #imgCounter
-     - Controls: close, prev/next project, prev/next image
   ========================================================= */
   const modal = qs("#projectModal");
   const projImage = qs("#projImage");
@@ -181,12 +193,11 @@
   let currentProject = 0;
   let currentImage = 0;
 
+  // Focus management (accessibility)
+  let lastFocusEl = null;
+
   /* =========================================================
      PROJECT DATA (EDIT HERE)
-     - Add/remove projects by editing this array
-     - IMPORTANT: your HTML .work-card data-project indexes must match this order
-     - Each project must include:
-       { title: string, desc: string, images: [img1, img2, ...] }
   ========================================================= */
   const projects = [
     {
@@ -288,31 +299,46 @@
     const project = projects[currentProject];
     if (!project) return;
 
-    if (projTitle) projTitle.textContent = project.title;
-    if (projDesc) projDesc.textContent = project.desc;
+    projTitle && (projTitle.textContent = project.title);
+    projDesc && (projDesc.textContent = project.desc);
 
     if (projImage) {
       projImage.src = project.images[currentImage];
       projImage.alt = `${project.title} – image ${currentImage + 1}`;
     }
 
-    if (imgCounter) imgCounter.textContent = `${currentImage + 1} / ${project.images.length}`;
+    if (imgCounter) {
+      imgCounter.textContent = `${currentImage + 1} / ${project.images.length}`;
+    }
   };
 
   const openModal = (index) => {
+    if (!modal) return;
+
+    lastFocusEl = document.activeElement;
+
     currentProject = index;
     currentImage = 0;
     renderProject();
 
-    modal?.classList.add("is-open");
-    modal?.setAttribute("aria-hidden", "false");
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
+
+    // Move focus inside modal (best practice)
+    btnClose?.focus();
   };
 
   const closeModal = () => {
-    modal?.classList.remove("is-open");
-    modal?.setAttribute("aria-hidden", "true");
+    if (!modal) return;
+
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+
+    // Restore focus to the element that opened the modal
+    lastFocusEl?.focus?.();
+    lastFocusEl = null;
   };
 
   const prevProject = () => {
@@ -339,9 +365,7 @@
     renderProject();
   };
 
-  /* Open modal from work cards (event delegation)
-     - Requires: .work-card elements with data-project="0..n"
-  */
+  // Open modal from work cards (event delegation)
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".work-card");
     if (!card) return;
@@ -350,8 +374,7 @@
     if (!Number.isInteger(index)) return;
     if (index < 0 || index >= projects.length) return;
 
-  openModal(index);
-
+    openModal(index);
   });
 
   btnClose?.addEventListener("click", closeModal);
@@ -368,7 +391,6 @@
 
   /* =========================================================
      ABOUT – Mobile toggle
-     - Toggles .about-text.is-open and updates aria-expanded
   ========================================================= */
   const aboutBtn = qs("#aboutBtn");
   const aboutText = qs("#aboutText");
@@ -382,7 +404,6 @@
 
   /* =========================================================
      PROGRAMS – Skill level chips
-     - Reads data-level (0–100) and sets CSS variable --level
   ========================================================= */
   qsa(".program-chip").forEach((chip) => {
     const level = Number(chip.dataset.level || 0);
@@ -391,10 +412,6 @@
 
   /* =========================================================
      GLOBAL – Keyboard shortcuts
-     - ESC closes nav always
-     - If modal is open:
-       ArrowLeft/Right → prev/next project
-       ArrowUp/Down    → prev/next image
   ========================================================= */
   window.addEventListener("keydown", (e) => {
     // Escape always closes nav
@@ -410,6 +427,7 @@
     if (e.key === "ArrowDown") nextImage();
   });
 })();
+
 
 
 

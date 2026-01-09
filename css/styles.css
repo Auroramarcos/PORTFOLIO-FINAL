@@ -88,6 +88,11 @@ body{
   border-radius: 10px;
 }
 
+/* Remove default outline only when not keyboard */
+:focus:not(:focus-visible){
+  outline: none;
+}
+
 /* =====================================================
    4) HEADER / NAVIGATION
    - Desktop nav + mobile dropdown (JS toggles .site-header.is-open)
@@ -234,8 +239,6 @@ body{
 
 /* =====================================================
    5) HERO + TRANSITION TO WORKS (JS: body.show-works)
-   - Hero is full height.
-   - Works section animates in when "Discover" is clicked.
 ===================================================== */
 .hero{
   min-height: 100vh;
@@ -247,7 +250,7 @@ body{
     radial-gradient(1000px 500px at 90% 20%, rgba(180,220,255,0.35), transparent 60%),
     var(--hero-bg);
   overflow: hidden;
-  transition: transform 900ms ease, opacity 900ms ease;
+  transition: transform 1100ms cubic-bezier(.22,1,.36,1), opacity 1100ms cubic-bezier(.22,1,.36,1);
 }
 
 .hero-inner{
@@ -314,30 +317,43 @@ body{
   transform: translateY(-2px);
 }
 
-/* Works initial state (revealed when body.show-works is added) */
+/* Works anchor spacing */
 #works{
-  transform: translateY(140px);
-  opacity: 0;
-  transition: transform 900ms ease, opacity 900ms ease;
-  scroll-margin-top: 160px;
+  scroll-margin-top: 10px;
 }
 
 /* State: show works (JS adds class to body) */
 body.show-works .hero{
-  transform: translateY(-160px);
+  transform: translateY(-260px);
   opacity: 0;
   pointer-events: none;
 }
 
 body.show-works .hero-content{
-  transform: translateY(-100px);
+  transform: translateY(-180px);
   filter: blur(12px);
   opacity: 0.2;
 }
 
-body.show-works #works{
-  transform: translateY(0);
-  opacity: 1;
+/* =====================================================
+   WORKS ENTRANCE (DESKTOP ONLY)
+   - Makes Works appear smoothly when body.show-works is added
+   - DOES NOT affect mobile (so carousel never disappears)
+===================================================== */
+@media (min-width: 601px){
+  body:not(.show-works) #works{
+    opacity: 0;
+    transform: translateY(90px);
+    transition:
+      opacity 900ms ease,
+      transform 900ms cubic-bezier(.22,1,.36,1);
+  }
+
+  body.show-works #works{
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 180ms;
+  }
 }
 
 /* Reduced motion: disable transitions/animations */
@@ -347,16 +363,15 @@ body.show-works #works{
   .hero,
   .hero-content,
   #works{
-    transition: none;
-    transform: none;
-    filter: none;
-    opacity: 1;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
   }
 }
 
 /* =====================================================
    6) HERO DECORATIONS (optional)
-   - Stickers/doodles are purely decorative.
 ===================================================== */
 .hero .stickers{
   position: absolute;
@@ -543,6 +558,7 @@ body.show-works #works{
   padding-top: 1rem;
 }
 
+/* Desktop: carousel “window” */
 .works-carousel{
   width: 100%;
   overflow: hidden;
@@ -551,6 +567,7 @@ body.show-works #works{
   min-height: 380px;
 }
 
+/* Track */
 .works-track{
   height: 100%;
   display: flex;
@@ -558,6 +575,7 @@ body.show-works #works{
   will-change: transform;
 }
 
+/* Slide */
 .work-slide{
   flex: 0 0 auto;
   height: 100%;
@@ -578,10 +596,40 @@ body.show-works #works{
   object-fit: cover;
   display: block;
 }
+
 .work-card:focus-visible{
   outline: 2px solid #111;
   outline-offset: 6px;
   border-radius: 14px;
+}
+
+/* MOBILE: show the carousel as horizontal scroll (so it never “disappears”) */
+@media (max-width: 600px){
+  .works-carousel{
+    height: auto;
+    min-height: unset;
+    max-height: unset;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+
+    scroll-snap-type: x mandatory;
+    padding: 0 1rem 1rem;
+  }
+
+  .works-track{
+    height: 320px;
+    width: max-content;
+    transform: none !important;
+  }
+
+  .work-slide{
+    height: 100%;
+    aspect-ratio: auto;
+    width: 240px;
+    scroll-snap-align: start;
+  }
 }
 
 /* =====================================================
@@ -1029,10 +1077,8 @@ body.show-works #works{
 
 /* =====================================================
    11) PROGRAMS / SKILLS GRID
-   - data-level (0–100) is used by JS to set --level
 ===================================================== */
 .programs{ border-top: 1px solid var(--border); }
-
 .programs .works-title{ margin-bottom: 4rem; }
 
 .programs-grid{
@@ -1052,7 +1098,7 @@ body.show-works #works{
 }
 
 .program-chip{
-  --level: 0; /* percentage (0–100). JS can update it from data-level */
+  --level: 0;
 
   position: relative;
   display: inline-flex;
@@ -1292,25 +1338,17 @@ input, textarea{
 /* =====================================================
    404 PAGE – Hero layout adjustments (404 only)
 ===================================================== */
-
-/* Reset hero optical offset */
-.page-404 .hero-content {
-  transform: none !important; /* remove -3.5% optical shift */
+.page-404 .hero-content{
+  transform: none !important;
   padding-top: 1rem;
 }
 
-/* Title spacing */
-.page-404 .hero-title {
+.page-404 .hero-title{
   margin-bottom: 0.75rem;
   max-width: none;
 }
 
-/* =====================================================
-   Stickers container
-===================================================== */
-
-/* Make stickers smaller and keep them away from center */
-.page-404 .hero .stickers {
+.page-404 .hero .stickers{
   inset: -80px -80px auto -80px;
   height: 520px;
   transform: scale(0.78);
@@ -1318,81 +1356,45 @@ input, textarea{
   opacity: 0.95;
 }
 
-/* Individual sticker positioning */
-.page-404 .hero .sticker--sun {
-  top: 20px;
-  left: 40px;
-}
+.page-404 .hero .sticker--sun{ top: 20px; left: 40px; }
+.page-404 .hero .sticker--star{ top: 16px; right: 60px; }
+.page-404 .hero .sticker--tag{ top: 120px; right: 220px; }
+.page-404 .hero .sticker--oval{ top: 300px; left: 70px; }
+.page-404 .hero .sticker--bubble{ top: 310px; right: 70px; }
 
-.page-404 .hero .sticker--star {
-  top: 16px;
-  right: 60px;
-}
+.page-404 .hero .sticker--dot{ left: 62%; top: 56%; }
+.page-404 .hero .sticker--dot-2{ left: 30%; top: 34%; }
+.page-404 .hero .sticker--dot-3{ left: 82%; top: 28%; }
 
-.page-404 .hero .sticker--tag {
-  top: 120px;
-  right: 220px;
-}
-
-.page-404 .hero .sticker--oval {
-  top: 300px;
-  left: 70px;
-}
-
-.page-404 .hero .sticker--bubble {
-  top: 310px;
-  right: 70px;
-}
-
-/* Decorative dots */
-.page-404 .hero .sticker--dot {
-  left: 62%;
-  top: 56%;
-}
-
-.page-404 .hero .sticker--dot-2 {
-  left: 30%;
-  top: 34%;
-}
-
-.page-404 .hero .sticker--dot-3 {
-  left: 82%;
-  top: 28%;
-}
-
-/* =====================================================
-   Text layering
-===================================================== */
-
-/* Keep text above stickers */
 .page-404 .hero-title,
 .page-404 .muted,
-.page-404 .hero-btn {
+.page-404 .hero-btn{
   position: relative;
   z-index: 10;
 }
 
-/* =====================================================
-   Remove doodles / SVG lines (404 only)
-===================================================== */
-
-/* Hide ONLY doodles (Safari-safe) */
 .page-404 .hero .doodles,
-.page-404 .hero [class*="doodle"] {
+.page-404 .hero [class*="doodle"]{
   display: none !important;
 }
 
-/* =====================================================
-   Accessibility – Focus styles
-===================================================== */
+/* =========================
+   MOBILE FIX: HERO TITLE
+========================= */
+@media (max-width: 480px){
+  .hero-title{
+    font-size: clamp(2.2rem, 10vw, 3.2rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    max-width: 12ch;
+    margin-inline: auto;
+  }
 
-/* Remove default outline only when not keyboard */
-:focus:not(:focus-visible) {
-  outline: none;
+  .hero{
+    padding: 2.25rem 1.25rem;
+  }
 }
 
-/* Buttons & links refinement */
-a:focus-visible,
-button:focus-visible {
-  border-radius: 999px;
-}
+
