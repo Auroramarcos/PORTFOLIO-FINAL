@@ -65,6 +65,27 @@
   const discoverBtn = qs("#discoverBtn");
   const worksSection = qs("#works");
 
+  // Ensure Works becomes visible when arriving via URL OR restored scroll position
+  const syncWorksVisibility = () => {
+    if (!worksSection) return;
+
+    const isAtWorksHash = location.hash === "#works";
+    const worksIsNear =
+      worksSection.getBoundingClientRect().top <= window.innerHeight * 0.6;
+
+    if (isAtWorksHash || worksIsNear) {
+      document.body.classList.add("show-works");
+    }
+  };
+
+  window.addEventListener("load", () => {
+    // let the browser apply any restored scroll / anchor jump first
+    setTimeout(syncWorksVisibility, 0);
+  });
+
+  window.addEventListener("hashchange", syncWorksVisibility);
+  window.addEventListener("scroll", syncWorksVisibility, { passive: true });
+
   const showWorks = () => {
     document.body.classList.add("show-works");
 
@@ -299,8 +320,8 @@
     const project = projects[currentProject];
     if (!project) return;
 
-    projTitle && (projTitle.textContent = project.title);
-    projDesc && (projDesc.textContent = project.desc);
+    if (projTitle) projTitle.textContent = project.title;
+    if (projDesc) projDesc.textContent = project.desc;
 
     if (projImage) {
       projImage.src = project.images[currentImage];
@@ -365,7 +386,9 @@
     renderProject();
   };
 
-  // Open modal from work cards (event delegation)
+  /* Open modal from work cards (event delegation)
+     - Requires: .work-card elements with data-project="0..n"
+  */
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".work-card");
     if (!card) return;
@@ -391,6 +414,7 @@
 
   /* =========================================================
      ABOUT – Mobile toggle
+     - Toggles .about-text.is-open and updates aria-expanded
   ========================================================= */
   const aboutBtn = qs("#aboutBtn");
   const aboutText = qs("#aboutText");
@@ -404,6 +428,7 @@
 
   /* =========================================================
      PROGRAMS – Skill level chips
+     - Reads data-level (0–100) and sets CSS variable --level
   ========================================================= */
   qsa(".program-chip").forEach((chip) => {
     const level = Number(chip.dataset.level || 0);
@@ -412,6 +437,10 @@
 
   /* =========================================================
      GLOBAL – Keyboard shortcuts
+     - ESC closes nav always
+     - If modal is open:
+       ArrowLeft/Right → prev/next project
+       ArrowUp/Down    → prev/next image
   ========================================================= */
   window.addEventListener("keydown", (e) => {
     // Escape always closes nav
@@ -427,8 +456,6 @@
     if (e.key === "ArrowDown") nextImage();
   });
 })();
-
-
 
 
 
